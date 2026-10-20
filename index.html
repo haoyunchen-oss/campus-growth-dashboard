@@ -18,9 +18,10 @@
     .notice{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}.notice-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}.notice-card h3{font-size:12px;margin:0 0 5px}.notice-card p{font-size:11px;color:#6d7b90;margin:0}.notice-card.info{border-left:3px solid var(--blue)}.notice-card.data{border-left:3px solid var(--amber)}
     .detail-panel{margin-bottom:16px}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:760px}.table th{background:#f7f9fc;color:#758197;text-align:left;font-size:10px;font-weight:700;padding:10px 9px;border-bottom:1px solid var(--line);white-space:nowrap}.table td{font-size:11px;padding:10px 9px;border-bottom:1px solid #eef1f5;white-space:nowrap}.table tr:last-child td{border-bottom:0}.rating{display:inline-block;min-width:30px;padding:2px 6px;text-align:center;border-radius:5px;background:#eef3fb;color:#475b7a;font-weight:650}.rating.top{background:#e8f2eb;color:#3d7b50}.rating.mid{background:#fff4e2;color:#9b6c1d}.locked{padding:21px;border:1px dashed #d8e0eb;border-radius:9px;color:#77849a;background:#f9fbfd;font-size:11px;text-align:center}.file-status{font-size:11px;color:#64748b;margin-left:5px}
     .visual-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}.visual-grid .wide{grid-column:1/-1}.chart-wrap{width:100%;overflow:auto}.chart-svg{display:block;width:100%;min-width:650px;height:auto}.chart-legend{display:flex;gap:8px 13px;flex-wrap:wrap;margin-top:12px}.chart-legend-item{display:flex;align-items:center;gap:6px;color:#5f6d82;font-size:10px}.chart-legend-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.chart-legend-line{width:16px;height:3px;border-radius:3px;display:inline-block}.chart-caption{font-size:10px;color:#8a95a5;margin:9px 0 0}.chart-empty{min-height:225px;display:grid;place-items:center;padding:20px;text-align:center;color:#8792a2;background:#f8fafd;border:1px dashed #d8e0eb;border-radius:9px;font-size:11px}.chart-select{height:30px;padding:0 25px 0 8px;border:1px solid #dce3ed;border-radius:7px;color:#40516b;background:#fff;font-size:11px}
+    .diag-stack{display:grid;gap:13px}.diag-period{display:grid;grid-template-columns:76px minmax(160px,1fr) 150px;align-items:center;gap:11px}.diag-period-name{font-size:11px;color:#53627a;font-weight:650}.diag-bar{height:23px;border-radius:6px;background:#f0f3f8;display:flex;overflow:hidden}.diag-seg{display:flex;align-items:center;justify-content:center;min-width:0;color:white;font-size:9px;font-weight:700;white-space:nowrap;overflow:hidden}.diag-seg.high{background:#2e7d32}.diag-seg.mid{background:#1565c0}.diag-seg.base{background:#ffb300;color:#503b00}.diag-result{text-align:right;font-size:10px;color:#617089;white-space:nowrap}.diag-result strong{color:#243550;font-size:11px}.diag-legend{display:flex;gap:13px;flex-wrap:wrap;margin:11px 0 0}.diag-legend-item{font-size:10px;color:#65738a;display:flex;align-items:center;gap:5px}.diag-legend-item i{width:9px;height:9px;border-radius:2px;display:inline-block}.cohort-health-list{display:grid;gap:9px}.cohort-health-row{display:grid;grid-template-columns:78px minmax(95px,.75fr) minmax(220px,1.35fr);gap:11px;align-items:center;padding:8px 9px;border:1px solid #edf0f5;border-radius:8px}.cohort-health-name{font-size:11px;font-weight:700;color:#42516a}.cohort-headcount{display:flex;align-items:center;gap:7px;font-size:10px;color:#6e7c91}.cohort-mini-track{height:8px;background:#eef2f8;border-radius:6px;overflow:hidden;flex:1}.cohort-mini-fill{height:100%;background:linear-gradient(90deg,#7ca3f3,#3e70d9);border-radius:6px}.cohort-health-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:10px;color:#617089}.cohort-pill{border:1px solid #dfe7f2;background:#f8fafc;border-radius:5px;padding:2px 6px;white-space:nowrap}.cohort-pill.warn{background:#fff1ef;color:#b33c35;border-color:#ffd5d1;font-weight:700}.cohort-note{font-size:10px;color:#8792a2;margin:10px 0 0}.matrix-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}.matrix-diagnosis{margin-top:12px;padding:10px 12px;background:#f8fafc;border:1px solid #e5eaf1;border-radius:8px;color:#596980;font-size:11px}.matrix-diagnosis.warn{background:#fff5e8;border-color:#f4d59e;color:#895b15}.heat .rank-head{text-align:left;white-space:nowrap;font-weight:700;color:#53627a}.heat .ratio-cell{padding:5px 4px;min-width:72px}.heat .ratio-cell .cell-count{font-weight:700;font-size:11px}.heat .ratio-cell .cell-ratio{font-size:9px;opacity:.85}.heat .ratio-cell.fire{outline:2px solid #df5e4d;outline-offset:-2px;color:#9f3027;font-weight:750}
     .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 3px;color:#8a95a5;font-size:10px}.foot a{color:#64748b}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    @media(max-width:900px){.shell{padding:20px}.grid,.visual-grid{grid-template-columns:1fr}.visual-grid .wide{grid-column:auto}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.filter-note{margin:0;text-align:left;max-width:none}.top{align-items:flex-start}.banner{align-items:flex-start;flex-direction:column}}
-    @media(max-width:560px){.shell{padding:15px 12px 32px}.top{display:block}.top-actions{justify-content:flex-start;margin-top:16px}.title{font-size:23px}.kpis{gap:8px}.kpi{padding:12px;min-height:90px}.kpi-value{font-size:22px}.panel{padding:15px 13px}.period-row{grid-template-columns:64px 1fr 32px;gap:6px}.notice{grid-template-columns:1fr}}
+    @media(max-width:900px){.shell{padding:20px}.grid,.visual-grid{grid-template-columns:1fr}.visual-grid .wide{grid-column:auto}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.filter-note{margin:0;text-align:left;max-width:none}.top{align-items:flex-start}.banner{align-items:flex-start;flex-direction:column}.cohort-health-row{grid-template-columns:75px minmax(100px,.6fr) minmax(180px,1.4fr)}}
+    @media(max-width:560px){.shell{padding:15px 12px 32px}.top{display:block}.top-actions{justify-content:flex-start;margin-top:16px}.title{font-size:23px}.kpis{gap:8px}.kpi{padding:12px;min-height:90px}.kpi-value{font-size:22px}.panel{padding:15px 13px}.period-row{grid-template-columns:64px 1fr 32px;gap:6px}.diag-period{grid-template-columns:62px 1fr;gap:6px}.diag-result{grid-column:2;text-align:left;white-space:normal}.diag-bar{height:20px}.diag-seg{font-size:8px}.cohort-health-row{grid-template-columns:1fr;gap:5px}.cohort-headcount{max-width:250px}.matrix-head{display:grid}.matrix-head label{max-width:180px}.notice{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -62,22 +63,23 @@
 
     <section class="grid">
       <article class="panel">
-        <div class="panel-head"><div><h2 class="panel-title">绩效评级分布</h2><p class="panel-desc">按周期展示有效评级人数；年中与年底周期分开比较。</p></div></div>
+        <div class="panel-head"><div><h2 class="panel-title">绩效评级分布（历年演变）</h2><p class="panel-desc">按周期展示绩效档位比例；年中与年底周期分开比较。</p></div></div>
         <div class="period-list" id="ratingChart"></div>
         <div class="legend" id="ratingLegend"></div>
-        <p class="small-note">条形长度表示该周期内各评级人数占比。空白评级不计入分母。</p>
+        <p class="small-note">右侧显示高光档（S/A/A-）占比及有效评级人数；空白评级不计入分母。</p>
       </article>
       <article class="panel">
-        <div class="panel-head"><div><h2 class="panel-title">各届人数</h2><p class="panel-desc">展示当前表格中的校招样本覆盖情况。</p></div></div>
+        <div class="panel-head"><div><h2 class="panel-title">各届人数与梯队健康度</h2><p class="panel-desc">结合人数、高光绩效占比与主力职级观察队列。</p></div></div>
         <div class="cohort-bars" id="cohortChart"></div>
-        <p class="small-note">届别人数较少时，比例和排名不宜单独解读。</p>
+        <p class="small-note">默认视图中，人数≤2且平均司龄&gt;4年的小届别合并为“20届及以前”。</p>
       </article>
     </section>
 
     <section class="panel" style="margin-bottom:16px">
-      <div class="panel-head"><div><h2 class="panel-title">校招届别 × 当前职级</h2><p class="panel-desc">按岗位序列内的职级名称展示人数分布，不跨岗位比较职级高低。</p></div></div>
+      <div class="matrix-head"><div><h2 class="panel-title">校招届别 × 当前职级（卡扣热力矩阵）</h2><p class="panel-desc">单元格显示人数及其占该届人数比例；深色表示人员集中，🔥提示22届SD1高占比。</p></div><label class="filter" style="min-width:140px;gap:4px"><span class="kpi-label">切换序列</span><select id="matrixDeptSelect" class="chart-select" aria-label="切换热力矩阵岗位序列"></select></label></div>
       <div class="heat-wrap" id="rankMatrix"></div>
-      <p class="small-note">这是当前职级快照。若要分析晋升速度，需补充入职职级、历次晋升职级及生效日期。</p>
+      <div class="matrix-diagnosis" id="matrixDiagnosis">导入 Excel 后，将按当前岗位序列和届别筛选动态计算卡扣提示。</div>
+      <p class="small-note">单元格比例 = 该届该职级人数 ÷ 该届总人数。22届 SD1 占比≥70%时标记；届别合并规则仅用于默认全届视图。</p>
     </section>
 
     <section class="visual-grid" aria-label="绩效可视化分析">
@@ -116,10 +118,12 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" crossorigin="anonymous"></script>
   <script>
     const DEFAULT_DATA = {snapshot:"",departments:["策划","程序"],periods:["2023年底","2024年底","2025年中","2025年底","2026年中"],people:[],ranks:[],ratings:[],ratingTotals:[]};
-    const RATING_ORDER = ['S','A','A-','B+','B','B-','C+','C','其他'];
-    const COLORS = {'S':'#176f64','A':'#2b9c91','A-':'#79b5a5','B+':'#6f92dd','B':'#a8b9db','B-':'#d9a14a','C+':'#de8b74','C':'#d56e76','其他':'#a6afbd'};
-    const SCORE = {'S':4.5,'A':4,'A-':3.7,'B+':3.3,'B':3,'B-':2.7,'C+':2.3,'C':2,'C-':1.7,'D':1.3};
+    const RATING_ORDER = ['S','A','A-','B+','B','B-','C+','C','C-','D','其他'];
+    const COLORS = {'S':'#176f64','A':'#2b9c91','A-':'#79b5a5','B+':'#6f92dd','B':'#a8b9db','B-':'#d9a14a','C+':'#de8b74','C':'#d56e76','C-':'#d56e76','D':'#a94f59','其他':'#a6afbd'};
+    const PERF_MAP = {'S':4.5,'A':4.0,'A-':3.7,'B+':3.3,'B':3.0,'B-':2.5,'C+':2.5,'C':2.5,'C-':2.5,'D':2.5};
+    const SCORE = PERF_MAP;
     const TOP_RATINGS = new Set(['B+','A-','A','S']);
+    const HIGH_BAND_RATINGS = new Set(['S','A','A-']);
     const PERSON_COLORS = ['#3974d8','#2b9c91','#d18a37','#8b70c7','#d56e76','#267da5','#71913b','#b65d9c','#5c6bc0','#9a7547','#258276','#cf6b48','#617caa','#8e6a99','#438a67'];
     const PERIODS = DEFAULT_DATA.periods;
     let current = DEFAULT_DATA;
@@ -160,25 +164,47 @@
     }
     function renderRating(){
       const records=ratingRecords(), wrap=$('ratingChart'); wrap.innerHTML='';
-      const categories=RATING_ORDER.filter(r=>records.some(x=>x.rating===r));
       for(const period of PERIODS){
         const rec=records.filter(x=>x.period===period), total=rec.reduce((s,x)=>s+x.count,0);
         if(!total) continue;
-        const counts=Object.fromEntries(categories.map(r=>[r,rec.filter(x=>x.rating===r).reduce((s,x)=>s+x.count,0)]));
-        const row=document.createElement('div'); row.className='period-row';
-        const bar=categories.map(r=>counts[r]?`<span class="bar-seg" title="${r}: ${counts[r]}人" style="width:${(counts[r]/total*100).toFixed(2)}%;background:${COLORS[r]||COLORS['其他']}"></span>`:'').join('');
-        row.innerHTML=`<div class="period-label">${escapeHtml(period)}</div><div class="bar-track" aria-label="${escapeHtml(period)}，${total}人">${bar}</div><div class="period-count">N=${total}</div>`;
+        const countFor=set=>rec.filter(x=>set.has(x.rating)).reduce((s,x)=>s+x.count,0);
+        const high=countFor(HIGH_BAND_RATINGS), bplus=countFor(new Set(['B+'])), base=Math.max(0,total-high-bplus);
+        const segments=[{name:'S/A/A-',count:high,cls:'high'},{name:'B+',count:bplus,cls:'mid'},{name:'B及以下',count:base,cls:'base'}];
+        const row=document.createElement('div'); row.className='diag-period';
+        const bar=segments.map(seg=>{if(!seg.count)return '';const pct=seg.count/total*100;const label=pct>=13?`${pct.toFixed(0)}%`:'';return `<span class="diag-seg ${seg.cls}" title="${seg.name}：${seg.count}人（${pct.toFixed(1)}%）" style="width:${pct.toFixed(2)}%">${label}</span>`}).join('');
+        row.innerHTML=`<div class="diag-period-name">${escapeHtml(period)}</div><div class="diag-bar" role="img" aria-label="${escapeHtml(period)}：高光 ${((high/total)*100).toFixed(1)}%，B+ ${((bplus/total)*100).toFixed(1)}%，B及以下 ${((base/total)*100).toFixed(1)}%">${bar}</div><div class="diag-result"><strong>高光 ${((high/total)*100).toFixed(1)}%</strong><br>N=${total}</div>`;
         wrap.appendChild(row);
       }
       if(!wrap.children.length) wrap.innerHTML='<div class="empty">当前筛选没有有效评级记录。</div>';
-      $('ratingLegend').innerHTML=categories.map(r=>`<span class="legend-item"><i class="swatch" style="background:${COLORS[r]||COLORS['其他']}"></i>${r}</span>`).join('');
+      $('ratingLegend').className='diag-legend';
+      $('ratingLegend').innerHTML='<span class="diag-legend-item"><i style="background:#2e7d32"></i>S/A/A-（高光层）</span><span class="diag-legend-item"><i style="background:#1565c0"></i>B+（胜任良好）</span><span class="diag-legend-item"><i style="background:#ffb300"></i>B及以下（基准/待观察）</span>';
     }
+    function cohortNumber(value){const n=Number(String(value).replace(/[^0-9]/g,''));return n>=2000?n%100:n}
+    function cohortBuckets(rows,collapseSmallOld=false){
+      const map=new Map();
+      rows.filter(p=>p.cohort!=='未注明').forEach(p=>{const key=p.cohort||'未注明';if(!map.has(key))map.set(key,[]);map.get(key).push(p)});
+      let buckets=[...map.entries()].map(([cohort,people])=>({label:`${cohort}届`,cohorts:[cohort],people}));
+      if(collapseSmallOld){
+        const old=buckets.filter(b=>{const num=cohortNumber(b.cohorts[0]),tenures=b.people.map(p=>p.tenure).filter(Number.isFinite),avg=tenures.length?tenures.reduce((a,v)=>a+v,0)/tenures.length:null;return num<=20&&b.people.length<=2&&avg!==null&&avg>4});
+        if(old.length){const people=old.flatMap(b=>b.people),cohorts=old.flatMap(b=>b.cohorts);buckets=buckets.filter(b=>!old.includes(b));buckets.push({label:'20届及以前',cohorts,people});}
+      }
+      return buckets.sort((a,b)=>Math.min(...a.cohorts.map(cohortNumber))-Math.min(...b.cohorts.map(cohortNumber)));
+    }
+    function highBandShare(people){let total=0,high=0;people.forEach(p=>Object.values(p.ratings||{}).forEach(r=>{if(Number.isFinite(SCORE[r])){total++;if(HIGH_BAND_RATINGS.has(r))high++}}));return {total,high,ratio:total?high/total:null}}
+    function dominantRank(people){const counts=new Map();people.forEach(p=>{const k=p.rank||'未填写';counts.set(k,(counts.get(k)||0)+1)});return [...counts.entries()].sort((a,b)=>b[1]-a[1])[0]?.[0]||'—'}
     function renderCohorts(){
-      const groups=selectedGroups().filter(x=>x.cohort!=='未注明');
-      const totalBy=groups.reduce((map,x)=>{map.set(x.cohort,(map.get(x.cohort)||0)+x.count);return map},new Map());
-      const entries=[...totalBy.entries()].sort((a,b)=>Number(a[0])-Number(b[0]));
-      const max=Math.max(1,...entries.map(x=>x[1]));
-      $('cohortChart').innerHTML=entries.length?entries.map(([cohort,count])=>`<div class="cohort-row"><div class="cohort-name">${escapeHtml(cohort)}届</div><div class="cohort-track"><div class="cohort-fill" style="width:${count/max*100}%"></div></div><div class="cohort-count">${count}</div></div>`).join(''):'<div class="empty">当前筛选没有已注明届别的记录。</div>';
+      const dept=$('departmentFilter').value,cohort=$('cohortFilter').value;
+      const people=(personalRows||[]).filter(p=>(dept==='全部'||p.dept===dept)&&(cohort==='全部'||p.cohort===cohort));
+      const buckets=cohortBuckets(people,cohort==='全部');
+      const max=Math.max(1,...buckets.map(b=>b.people.length));
+      $('cohortChart').className='cohort-health-list';
+      $('cohortChart').innerHTML=buckets.length?buckets.map(b=>{
+        const n=b.people.length,metrics=highBandShare(b.people),avgTenure=b.people.map(p=>p.tenure).filter(Number.isFinite),tenure=avgTenure.length?avgTenure.reduce((a,v)=>a+v,0)/avgTenure.length:null;
+        const warnings=[...new Set(b.people.map(p=>p.dept))].map(d=>{const team=b.people.filter(p=>p.dept===d),knownTenure=team.map(p=>p.tenure).filter(Number.isFinite),avg=knownTenure.length?knownTenure.reduce((a,v)=>a+v,0)/knownTenure.length:null,sd1=team.filter(p=>rankScore(p)===3).length,share=team.length?sd1/team.length:0;return {dept:d,n:team.length,sd1,share,tenure:avg}}).filter(w=>w.n>=3&&w.tenure!==null&&w.tenure>=3&&w.share>.9);
+        const ratio=metrics.ratio===null?'暂无':`${(metrics.ratio*100).toFixed(1)}%`;
+        const rank=dept==='全部'?[...new Set(b.people.map(p=>p.dept))].map(d=>`${d}：${dominantRank(b.people.filter(p=>p.dept===d))}`).join(' / '):dominantRank(b.people);
+        return `<div class="cohort-health-row"><div class="cohort-health-name">${escapeHtml(b.label)}</div><div class="cohort-headcount"><span class="cohort-mini-track"><i class="cohort-mini-fill" style="display:block;width:${n/max*100}%"></i></span><strong>${n}人</strong></div><div class="cohort-health-meta"><span class="cohort-pill">高光 ${ratio}</span><span class="cohort-pill">主力职级 ${escapeHtml(rank)}</span>${tenure!==null?`<span class="cohort-pill">平均司龄 ${tenure.toFixed(1)}年</span>`:''}${warnings.map(w=>`<span class="cohort-pill warn">⚠ ${escapeHtml(w.dept)}卡扣预警：SD1 ${w.sd1}/${w.n}（${(w.share*100).toFixed(1)}%）</span>`).join('')}</div></div>`;
+      }).join(''):'<div class="empty">导入 Excel 后，查看各届人数与梯队健康度。</div>';
     }
     function rankSort(dept, values){
       const planner=['Designer II','Senior Designer I','Senior Designer II','Senior Designer III','Lead Designer'];
@@ -186,18 +212,42 @@
       const known=dept==='策划'?planner:programmer;
       return [...values].sort((a,b)=>{const ai=known.indexOf(a),bi=known.indexOf(b);if(ai<0&&bi<0)return a.localeCompare(b,'zh-CN');if(ai<0)return 1;if(bi<0)return -1;return ai-bi});
     }
+    function syncMatrixSequence(){
+      const select=$('matrixDeptSelect');if(!select)return;
+      const departments=current.departments?.length?current.departments:DEFAULT_DATA.departments;
+      const globalDept=$('departmentFilter').value,previous=select.value;
+      select.innerHTML=departments.map(d=>`<option value="${escapeHtml(d)}">${escapeHtml(d)}序列</option>`).join('');
+      if(globalDept!=='全部'&&departments.includes(globalDept)){select.value=globalDept;select.disabled=true;}
+      else{select.value=departments.includes(previous)?previous:(departments.includes('程序')?'程序':departments[0]||'');select.disabled=departments.length<2;}
+    }
     function renderRankMatrix(){
-      const records=rankRecords().filter(x=>x.cohort!=='未注明'), dept=$('departmentFilter').value;
-      const depts=dept==='全部'?current.departments:[dept];
-      if(depts.length>1){$('rankMatrix').innerHTML='<div class="empty">请选择一个岗位序列，再查看该序列内部的职级分布。</div>';return}
-      const d=depts[0], cohorts=[...new Set(records.map(x=>x.cohort))].sort((a,b)=>Number(a)-Number(b));
-      const ranks=rankSort(d,[...new Set(records.map(x=>x.rank))]);
-      if(!cohorts.length||!ranks.length){$('rankMatrix').innerHTML='<div class="empty">当前筛选没有可展示的职级记录。</div>';return}
-      const values=cohorts.map(c=>ranks.map(r=>records.filter(x=>x.cohort===c&&x.rank===r).reduce((s,x)=>s+x.count,0)));
-      const max=Math.max(1,...values.flat());
-      let html='<table class="heat"><thead><tr><th>届别</th>'+ranks.map(r=>`<th>${escapeHtml(r)}</th>`).join('')+'</tr></thead><tbody>';
-      cohorts.forEach((c,i)=>{html+=`<tr><td>${escapeHtml(c)}届</td>`+ranks.map((r,j)=>{const n=values[i][j];const cls=n===0?'':n===max?'max':'has';return `<td class="${cls}" title="${escapeHtml(c)}届 · ${escapeHtml(r)} · ${n}人">${n||'—'}</td>`}).join('')+'</tr>'});
-      html+='</tbody></table>'; $('rankMatrix').innerHTML=html;
+      syncMatrixSequence();
+      const dept=$('departmentFilter').value,selectedDept=dept==='全部'?$('matrixDeptSelect').value:dept,cohort=$('cohortFilter').value;
+      const people=(personalRows||[]).filter(p=>p.dept===selectedDept&&(cohort==='全部'||p.cohort===cohort));
+      const buckets=cohortBuckets(people,cohort==='全部');
+      if(!people.length||!buckets.length){$('rankMatrix').innerHTML='<div class="empty">导入 Excel 后，查看所选序列的届别与职级分布。</div>'; $('matrixDiagnosis').className='matrix-diagnosis';$('matrixDiagnosis').textContent='暂无可计算的职级分布。';return}
+      const rankDefs=[{key:5,label:'SD3'},{key:4,label:'SD2'},{key:3,label:'SD1'},{key:2,label:'D2'},{key:1,label:'D1'}];
+      const counts=buckets.map(b=>{const byRank=new Map(rankDefs.map(r=>[r.key,0]));let unknown=0;b.people.forEach(p=>{const score=rankScore(p);if(byRank.has(score))byRank.set(score,byRank.get(score)+1);else unknown++});return {bucket:b,byRank,unknown,total:b.people.length}});
+      const hasUnknown=counts.some(c=>c.unknown>0),rows=rankDefs.filter(r=>counts.some(c=>c.byRank.get(r.key)>0));
+      if(hasUnknown)rankDefs.push({key:null,label:'未映射'});
+      const displayed=rows.length?rankDefs.filter(r=>r.key===null||rows.some(x=>x.key===r.key)):rankDefs;
+      let html='<table class="heat"><thead><tr><th class="rank-head">职级 \\ 届别</th>'+counts.map(c=>`<th>${escapeHtml(c.bucket.label)}</th>`).join('')+'</tr></thead><tbody>';
+      const cautions=[];
+      displayed.forEach(rank=>{
+        html+=`<tr><td class="rank-head">${rank.label==='SD1'?'Senior I · SD1':rank.label}</td>`;
+        counts.forEach(c=>{
+          const n=rank.key===null?c.unknown:c.byRank.get(rank.key)||0,pct=c.total?n/c.total:0;
+          const is22=c.bucket.cohorts.length===1&&c.bucket.cohorts[0]==='22',fire=is22&&rank.key===3&&pct>=.7;
+          const alpha=n?(.08+.7*pct).toFixed(2):0,style=n?`background:rgba(49,95,197,${alpha});color:${pct>=.5?'#fff':'#35445e'}`:'';
+          if(fire)cautions.push({n,total:c.total,pct});
+          html+=`<td class="ratio-cell ${fire?'fire':''}" style="${style}" title="${escapeHtml(c.bucket.label)} · ${escapeHtml(rank.label)} · ${n}/${c.total}（${(pct*100).toFixed(1)}%）"><div class="cell-count">${n||'—'}</div><div class="cell-ratio">${n?(pct*100).toFixed(1)+'%':''}</div>${fire?'<div class="cell-ratio">🔥</div>':''}</td>`;
+        });
+        html+='</tr>';
+      });
+      html+='</tbody></table>';$('rankMatrix').innerHTML=html;
+      const diagnosis=$('matrixDiagnosis');
+      if(cautions.length){const c=cautions[0];diagnosis.className='matrix-diagnosis warn';diagnosis.innerHTML=`卡扣预警线索：22届 Senior I（SD1）占比 ${(c.pct*100).toFixed(1)}%（${c.n}/${c.total}），已达到 70% 提示线；建议结合个人晋升记录和岗位要求进一步核实。`}
+      else{diagnosis.className='matrix-diagnosis';diagnosis.textContent='当前筛选未达到“22届 Senior I（SD1）占比≥70%”提示线。职级快照用于定位集中分布，不能单独证明晋升卡扣。'}
     }
     function ratedMetrics(person){
       const vals=Object.values(person.ratings||{}).filter(r=>Number.isFinite(SCORE[r]));
@@ -218,20 +268,16 @@
       select.value=values.includes(previous)?previous:values.includes('22')?'22':values[0]||'';
     }
     function rankScore(person){
-      const raw=String(person.rank||'').trim().replace(/\s+/g,' '),senior=/^Senior\s+/i.test(raw),token=raw.match(/(IV|III|II|I|V)$/i)?.[1]?.toUpperCase(),n=({I:1,II:2,III:3,IV:4,V:5})[token];
-      if(/^D[1-2]$/i.test(raw))return Number(raw.slice(1));
-      if(/^(SD|SE)[1-3]$/i.test(raw))return 2+Number(raw.slice(2));
-      if(!n)return null;
-      if(person.dept==='策划'){
-        if(senior&&n>=1&&n<=3)return 2+n;
-        if(!senior&&n>=1&&n<=2)return n;
-        return null;
-      }
+      const raw=String(person.rank||'').trim().replace(/\s+/g,' '),compact=raw.toLowerCase().replace(/\s+/g,'');
+      const common={'d1':1,'d2':2,'sd1':3,'sd2':4,'sd3':5,'se1':3,'se2':4,'se3':5};
+      if(common[compact]!==undefined)return common[compact];
       if(person.dept==='程序'){
-        if(senior&&n>=1&&n<=3)return 2+n;
-        if(!senior&&n===1)return 1;
-        if(!senior&&n===2)return 2;
-        return null;
+        const program={'engineeri':1,'engineerii':2,'seniorengineeri':3,'seniorengineerii':4,'seniorengineeriii':5};
+        return program[compact]??null;
+      }
+      if(person.dept==='策划'){
+        const planner={'designerii':2,'seniordesigneri':3,'seniordesignerii':4,'seniordesigneriii':5};
+        return planner[compact]??null;
       }
       return null;
     }
@@ -268,8 +314,8 @@
       const wrap=$('trajectoryChart'),legend=$('trajectoryLegend'),dept=$('departmentFilter').value,target=$('trajectoryCohort').value;legend.innerHTML='';
       const rows=(personalRows||[]).filter(p=>(dept==='全部'||p.dept===dept)&&p.cohort===target&&Object.keys(p.ratings||{}).length);
       if(!rows.length){wrap.innerHTML='<div class="chart-empty">该届暂无可展示的绩效记录。</div>';return}
-      const periods=PERIODS,levels=[['C',2],['C+',2.3],['B-',2.7],['B',3],['B+',3.3],['A-',3.7],['A',4],['S',4.5]],W=820,H=360,L=70,R=24,T=22,B=47,innerW=W-L-R,innerH=H-T-B;
-      const sx=i=>L+(periods.length===1?0:i/(periods.length-1))*innerW,sy=v=>T+(4.5-v)/(4.5-2)*innerH;
+      const periods=PERIODS,levels=[['B-/C/D',2.5],['B',3],['B+',3.3],['A-',3.7],['A',4],['S',4.5]],W=820,H=360,L=70,R=24,T=22,B=47,innerW=W-L-R,innerH=H-T-B;
+      const sx=i=>L+(periods.length===1?0:i/(periods.length-1))*innerW,sy=v=>T+(4.5-v)/(4.5-2.5)*innerH;
       let svg=`<svg class="chart-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeHtml(target)}届个人绩效轨迹折线图">`;
       levels.forEach(([label,val])=>{const y=sy(val);svg+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#e9edf3"/><text x="${L-10}" y="${y+4}" text-anchor="end" fill="#7a8799" font-size="10">${label}</text>`});
       periods.forEach((p,i)=>{const x=sx(i);svg+=`<line x1="${x}" y1="${T}" x2="${x}" y2="${T+innerH}" stroke="#f0f2f6"/><text x="${x}" y="${H-15}" text-anchor="middle" fill="#7a8799" font-size="10">${p}</text>`});
@@ -352,6 +398,7 @@
     }
     $('departmentFilter').addEventListener('change',()=>{fillCohortFilter();fillTrajectoryFilter();render()});
     $('cohortFilter').addEventListener('change',render);
+    $('matrixDeptSelect').addEventListener('change',renderRankMatrix);
     $('trajectoryCohort').addEventListener('change',renderTrajectory);
     $('resetBtn').addEventListener('click',()=>{$('departmentFilter').value='全部';$('cohortFilter').value='全部';current=DEFAULT_DATA;personalRows=null;$('snapshotLabel').textContent='尚未导入数据';fillCohortFilter();fillTrajectoryFilter();render()});
     $('fileInput').addEventListener('change',async event=>{
