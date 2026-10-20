@@ -28,6 +28,7 @@
     @media(max-width:700px){.summary-grid{grid-template-columns:1fr;gap:12px}.summary-card{padding:18px 16px 14px}.summary-headcount{grid-column:auto;display:flex}.summary-headcount .summary-departments{margin-bottom:14px}.summary-count{font-size:50px}.summary-chart{min-height:0;margin:12px 0}.summary-description{font-size:11px}}
     .people-dialog.quadrant-detail-dialog{width:min(1120px,calc(100vw - 28px));max-height:86vh}.quadrant-detail-dialog .people-dialog-body{max-height:calc(86vh - 104px);background:#fbfcfe}.quadrant-detail-dialog .people-dialog-subtitle{line-height:1.7}.quadrant-roster-scroll{overflow:auto}.quadrant-roster{width:100%;min-width:980px;border-collapse:separate;border-spacing:0 10px;table-layout:fixed}.quadrant-roster th{text-align:left;padding:12px 14px;font-size:11px;font-weight:700;color:#57677e;background:#edf2f8;white-space:nowrap}.quadrant-roster td{padding:14px;font-size:12px;background:#fff;border-top:1px solid #e4ebf4;border-bottom:1px solid #e4ebf4;vertical-align:middle}.quadrant-roster td:first-child{border-left:1px solid #e4ebf4;border-radius:8px 0 0 8px;color:#8491a4;font-variant-numeric:tabular-nums}.quadrant-roster td:last-child{border-right:1px solid #e4ebf4;border-radius:0 8px 8px 0}.quadrant-roster tbody tr:hover td{background:#f7faff}.quadrant-person-name{font-weight:750;color:#243653;overflow-wrap:anywhere}.quadrant-dept-badge{display:inline-block;padding:4px 9px;border-radius:5px;background:#f0f4fa;color:#566981;font-size:11px}.quadrant-rank-badge{font-weight:750;color:#394d6d}.quadrant-rate{display:flex;align-items:center;gap:9px}.quadrant-rate-track{width:94px;flex:none;height:12px;border-radius:3px;background:#e8edf4;overflow:hidden}.quadrant-rate-fill{height:100%;border-radius:3px}.quadrant-rate-number{font-weight:750;font-variant-numeric:tabular-nums;font-size:12px}.quadrant-rate-note{font-size:10px;color:#7b889b;margin-top:6px}.quadrant-sparkline{display:block;width:100%;height:auto;overflow:visible}.quadrant-sparkline text{font-family:inherit}.quadrant-roster-note{font-size:11px;color:#7b889b;line-height:1.7;margin:4px 0 0}.quadrant-node:hover circle{stroke-width:2.2}
     .quadrant-name{cursor:pointer}.quadrant-size-key{display:flex;align-items:center;gap:18px;width:100%;padding-top:8px;margin-top:3px;border-top:1px solid #edf1f6;font-size:11px;color:#63728a;flex-wrap:wrap}.quadrant-size-example{display:inline-flex;align-items:center;gap:7px}.quadrant-size-note{font-size:10px;color:#8792a4}
+    .boxplot-summary{display:flex;align-items:center;gap:12px 20px;flex-wrap:wrap;margin:0 0 16px;padding:11px 13px;border:1px solid #e4eaf2;border-radius:8px;background:#f8fafd;font-size:11px;color:#7a879a}.boxplot-summary strong{color:#364e70;font-size:13px}.boxplot-baseline-key{display:inline-block;width:21px;border-top:2px dashed #617895}.boxplot-point{cursor:pointer;outline:none}.boxplot-point:hover,.boxplot-point:focus-visible{stroke:#243e65;stroke-width:2}.boxplot-scroll-note{font-size:10px;color:#8190a5;margin:8px 0 0}.boxplot-tooltip{display:none;position:fixed;z-index:1001;width:360px;max-width:calc(100vw - 24px);padding:13px 15px;box-sizing:border-box;background:#fff;border:1px solid #d9e3f0;border-radius:10px;box-shadow:0 12px 38px #172d4b33;color:#2a3f5d;pointer-events:none;font-size:12px}.boxplot-tooltip strong{font-size:14px}.boxplot-tooltip-meta{color:#7a899f;font-size:10px;margin:5px 0}.boxplot-tooltip-ratio{font-size:13px;font-weight:700;margin:9px 0}.boxplot-tooltip-ratio span{font-size:10px;color:#7a899f;font-weight:400}.boxplot-trend{display:block;width:100%;height:auto;margin:5px 0}.boxplot-tooltip-hint{font-size:10px;color:#8290a3;border-top:1px solid #edf1f6;padding-top:7px}
   </style>
 </head>
 <body>
@@ -111,9 +112,11 @@
         <p class="chart-caption">高绩效占比 = B+、A-、A 评级次数 ÷ 有效考核次数。气泡面积与司龄成比例，筛选前后使用同一尺寸标准；重叠超过 3 人时合并，面积取组内平均司龄，数字表示人数。司龄缺失或为 0 时以小号虚线气泡表示。点击任一气泡，查看姓名、序列、司龄、职级、高绩效率和绩效趋势。短司龄且职级较高可作为快速成长线索，但当前职级与司龄不能代替真实晋升记录。</p>
       </article>
       <article class="panel">
-        <div class="panel-head"><div><h2 class="panel-title">各届高绩效占比分布</h2><p class="panel-desc">展示个人 高绩效占比的届内分布，箱体为四分位区间，圆点为个人。</p></div></div>
+        <div class="panel-head"><div><h2 class="panel-title">各届高绩效占比分布</h2><p class="panel-desc">同届同占比的圆点均匀散开；悬浮看个人，点击任一点查看该届同占比的全部人员。</p></div><span class="banner-tag">有效人数 ≥5</span></div>
+        <div id="boxplotSummary" class="boxplot-summary" aria-live="polite"></div>
         <div id="boxplotChart" class="chart-wrap"></div>
-        <p class="chart-caption">高绩效占比 = B+、A-、A 评级次数 ÷ 有效考核次数。届别样本较少时，请同时查看圆点和样本数，不宜直接据此排序。</p>
+        <div id="boxplotLegend" class="chart-legend"><span class="chart-legend-item"><i class="chart-legend-dot" style="background:#e83e68"></i>高于大盘均值</span><span class="chart-legend-item"><i class="chart-legend-dot" style="background:#3b82f6"></i>等于大盘均值</span><span class="chart-legend-item"><i class="chart-legend-dot" style="background:#d99012"></i>低于大盘均值</span><span class="chart-legend-item"><i class="boxplot-baseline-key"></i>当前筛选的大盘平均高绩效线</span></div>
+        <p class="chart-caption">数据口径：仅展示当前筛选下有效参评人数 ≥5 的届别，N 为至少有一次有效评级的人数。本图高绩效占比 = S、A、A-、B+ 次数 ÷ 2022–2026 年历史有效参评次数；空白评级不计入。大盘均值为当前筛选中所有有效参评人员的个人占比均值，包含不足 5 人的届别。箱体为 Q1–Q3，中线为中位数，须线为最小值和最大值。颜色表示相对大盘的位置。</p>
       </article>
     </section>
 
@@ -124,7 +127,7 @@
 
     <dialog class="people-dialog" id="peopleDrilldown" aria-labelledby="peopleDrilldownTitle"><div class="people-dialog-head"><div><h2 class="people-dialog-title" id="peopleDrilldownTitle">人员明细</h2><p class="people-dialog-subtitle" id="peopleDrilldownSubtitle"></p></div><button class="people-dialog-close" type="button" id="peopleDrilldownClose">关闭</button></div><div class="people-dialog-body" id="peopleDrilldownBody"></div></dialog>
 
-    <footer class="foot"><span>v20 · 在职人员基础汇总 · 数据仅在当前浏览器会话处理 · 刷新页面后清除本次导入数据</span><span>四象限为规则分组；晋升速度需结合历史职级和生效日期判断</span></footer>
+    <footer class="foot"><span>v21 · 在职人员基础汇总 · 数据仅在当前浏览器会话处理 · 刷新页面后清除本次导入数据</span><span>四象限为规则分组；晋升速度需结合历史职级和生效日期判断</span></footer>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" crossorigin="anonymous"></script>
@@ -603,24 +606,66 @@
     }
 
     function quantile(sorted,q){if(!sorted.length)return 0;const pos=(sorted.length-1)*q,lo=Math.floor(pos),hi=Math.ceil(pos);return sorted[lo]+(sorted[hi]-sorted[lo])*(pos-lo)}
-    function stableJitter(name){let h=0;for(const ch of String(name))h=(h*31+ch.charCodeAt(0))>>>0;return ((h%1001)/1000-.5)*.28}
+    const BOXPLOT_HIGH_RATINGS=new Set(['S','A','A-','B+']);
+    function boxplotMetrics(person){
+      const history=Object.entries(person.healthRatings||person.ratings||{}).filter(([period,rating])=>{const info=healthPeriodInfo(period);return info&&info.year>=2022&&info.year<=2026&&isHealthRating(rating)}).sort((a,b)=>healthPeriodInfo(a[0]).order-healthPeriodInfo(b[0]).order);
+      if(!history.length)return null;
+      const count=history.length,highCount=history.filter(([,r])=>BOXPLOT_HIGH_RATINGS.has(r)).length,gcd=(a,b)=>b?gcd(b,a%b):a,divisor=gcd(highCount,count);
+      return {count,highCount,ratio:highCount/count,ratioKey:`${highCount/divisor}/${count/divisor}`,history};
+    }
+    function boxplotPopulation(){return filteredPeople().map(p=>({p,m:boxplotMetrics(p)})).filter(row=>row.m)}
+    function boxplotSummaryData(){
+      const rows=boxplotPopulation(),baseline=rows.length?rows.reduce((sum,row)=>sum+row.m.ratio,0)/rows.length:null,groups=new Map();
+      rows.forEach(row=>{const cohort=row.p.cohort||'未注明';if(!groups.has(cohort))groups.set(cohort,[]);groups.get(cohort).push(row)});
+      const cohorts=[...groups.keys()].filter(c=>groups.get(c).length>=5).sort((a,b)=>cohortNumber(a)-cohortNumber(b));
+      return {rows,baseline,groups,cohorts};
+    }
+    function boxplotPercent(ratio){return `${Number((ratio*100).toFixed(1))}%`}
+    function boxplotColor(ratio,baseline){return Math.abs(ratio-baseline)<1e-12?'#3b82f6':ratio>baseline?'#e83e68':'#d99012'}
+    function boxplotTrend(person){
+      const m=boxplotMetrics(person);if(!m)return '';
+      const periods=availableHealthPeriods(filteredPeople()).filter(p=>p.year>=2022&&p.year<=2026),W=330,H=86,L=18,R=18,T=17,B=24;
+      const points=periods.map((p,i)=>{const grade=person.healthRatings?.[p.key]||person.ratings?.[p.key],score=HEALTH_PERF_MAP[grade];return {period:p.label,grade,valid:isHealthRating(grade),x:L+i/Math.max(1,periods.length-1)*(W-L-R),y:T+(4.5-score)/2.5*(H-T-B)}});
+      let svg=`<svg class="boxplot-trend" viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeHtml(m.history.map(([period,grade])=>period+' '+grade).join('；'))}">`;
+      points.forEach((pt,i)=>{if(i&&pt.valid&&points[i-1].valid)svg+=`<line x1="${points[i-1].x}" y1="${points[i-1].y}" x2="${pt.x}" y2="${pt.y}" stroke="#426fd0" stroke-width="2"/>`;if(pt.valid)svg+=`<circle cx="${pt.x}" cy="${pt.y}" r="2.5" fill="#426fd0"/><text x="${pt.x}" y="${pt.y-6}" fill="#375ca3" text-anchor="middle" font-size="9">${pt.grade}</text>`;else svg+=`<text x="${pt.x}" y="38" text-anchor="middle" fill="#a4afbf" font-size="9">—</text>`;if(periods.length<=7||i%2===0||i===periods.length-1)svg+=`<text x="${pt.x}" y="${H-4}" text-anchor="middle" fill="#8290a4" font-size="8">${escapeHtml(pt.period.replace(/^20/,''))}</text>`});
+      return svg+'</svg>';
+    }
+    function boxplotTooltip(){let tip=$('boxplotHoverTooltip');if(!tip){tip=document.createElement('div');tip.id='boxplotHoverTooltip';tip.className='boxplot-tooltip';tip.setAttribute('role','tooltip');document.body.appendChild(tip)}return tip}
+    function bindBoxplotInteractions(container){
+      if(container.dataset.boxplotBound)return;container.dataset.boxplotBound='true';
+      const tip=boxplotTooltip(),hide=()=>{tip.style.display='none'},targetOf=event=>event.target.closest('[data-boxplot-person]');
+      const position=(x,y)=>{tip.style.left=`${Math.max(8,Math.min(x+12,window.innerWidth-tip.offsetWidth-8))}px`;tip.style.top=`${Math.max(8,Math.min(y+12,window.innerHeight-tip.offsetHeight-8))}px`};
+      const hover=(target,x,y)=>{const person=filteredPeople().find(p=>personKey(p)===decodeURIComponent(target.dataset.boxplotPerson));if(!person)return;const m=boxplotMetrics(person);if(!m)return;tip.innerHTML=`<strong>${escapeHtml(person.name||'未填写姓名')}</strong><div class="boxplot-tooltip-meta">${escapeHtml(person.dept||'未填写')} · ${escapeHtml(cohortLabel(person.cohort||'未注明'))} · ${escapeHtml(displayRank(person))}</div><div class="boxplot-tooltip-ratio">高绩效占比 ${boxplotPercent(m.ratio)} <span>（${m.highCount}/${m.count} 次）</span></div><div class="boxplot-tooltip-meta">历年绩效轨迹</div>${boxplotTrend(person)}<div class="boxplot-tooltip-hint">点击查看该届同占比的全部人员</div>`;tip.style.display='block';position(x,y)};
+      const open=target=>{hide();const cohort=decodeURIComponent(target.dataset.boxplotCohort),ratioKey=target.dataset.boxplotRatio,group=boxplotPopulation().filter(row=>(row.p.cohort||'未注明')===cohort&&row.m.ratioKey===ratioKey);if(!group.length)return;showPeopleDetails(`${cohortLabel(cohort)} · 高绩效占比 ${boxplotPercent(group[0].m.ratio)}`,group.map(row=>row.p),{subtitle:`同届、同占比共 ${group.length} 人 · 按岗位序列展示`,detailFor:p=>{const m=boxplotMetrics(p);return `高绩效 ${m.highCount}/${m.count} 次 · ${boxplotPercent(m.ratio)}`}})};
+      container.addEventListener('click',event=>{const target=targetOf(event);if(target)open(target)});
+      container.addEventListener('keydown',event=>{const target=targetOf(event);if(target&&(event.key==='Enter'||event.key===' ')){event.preventDefault();open(target)}});
+      container.addEventListener('pointerover',event=>{const target=targetOf(event);if(target)hover(target,event.clientX,event.clientY)});
+      container.addEventListener('pointermove',event=>{if(targetOf(event)&&tip.style.display==='block')position(event.clientX,event.clientY)});
+      container.addEventListener('pointerout',event=>{if(targetOf(event)&&!event.relatedTarget?.closest?.('[data-boxplot-person]'))hide()});
+      container.addEventListener('pointerleave',hide);
+      container.addEventListener('focusin',event=>{const target=targetOf(event);if(target){const rect=target.getBoundingClientRect();hover(target,rect.right,rect.top)}});
+      container.addEventListener('focusout',hide);
+    }
     function renderBoxplot(){
-      const wrap=$('boxplotChart'),rows=plotPeople();
+      const wrap=$('boxplotChart'),summary=$('boxplotSummary'),tip=$('boxplotHoverTooltip');if(tip)tip.style.display='none';
+      const {rows,baseline,groups,cohorts}=boxplotSummaryData(),visibleN=cohorts.reduce((sum,c)=>sum+groups.get(c).length,0),unrated=filteredPeople().length-rows.length;
+      summary.innerHTML=rows.length?`<strong>大盘平均高绩效 ${boxplotPercent(baseline)}</strong><span>基线样本 ${rows.length} 人 · 图中展示 ${cohorts.length} 届 / ${visibleN} 人${unrated?` · ${unrated} 人无有效评级，未计入`:''}</span>`:'<span>导入 Excel 后，按当前筛选计算高绩效占比和大盘均值。</span>';
       if(!rows.length){wrap.innerHTML='<div class="chart-empty">'+(personalRows?'当前筛选没有有效绩效记录。':'导入 Excel 后，比较各届个人高绩效占比。')+'</div>';return}
-      const cohorts=[...new Set(rows.map(p=>p.cohort))].sort((a,b)=>cohortNumber(a)-cohortNumber(b));
-      if(!cohorts.length){wrap.innerHTML='<div class="chart-empty">当前筛选没有有效届别。</div>';return}
-      const W=820,H=355,L=62,R=20,T=20,B=56,innerW=W-L-R,innerH=H-T-B,sy=v=>T+(1-v)*innerH,step=innerW/cohorts.length,cx=i=>L+step*(i+.5);
-      let svg=`<svg class="chart-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="各届个人 高绩效占比分布箱线图和散点">`;
-      for(let i=0;i<=4;i++){const val=i/4,y=sy(val);svg+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#e9edf3"/><text x="${L-9}" y="${y+4}" text-anchor="end" fill="#7a8799" font-size="10">${Math.round(val*100)}%</text>`}
-      cohorts.forEach((cohort,i)=>{
-        const group=rows.filter(p=>p.cohort===cohort).map(p=>({p,m:p.metrics})).filter(x=>x.m);
-        if(!group.length)return;
-        const vals=group.map(x=>x.m.top).sort((a,b)=>a-b),q1=quantile(vals,.25),med=quantile(vals,.5),q3=quantile(vals,.75),min=vals[0],max=vals[vals.length-1],x=cx(i),boxW=Math.min(34,step*.36);
-        svg+=`<line x1="${x}" y1="${sy(max)}" x2="${x}" y2="${sy(q3)}" stroke="#d18a37"/><line x1="${x}" y1="${sy(q1)}" x2="${x}" y2="${sy(min)}" stroke="#d18a37"/><line x1="${x-boxW*.32}" y1="${sy(max)}" x2="${x+boxW*.32}" y2="${sy(max)}" stroke="#d18a37"/><line x1="${x-boxW*.32}" y1="${sy(min)}" x2="${x+boxW*.32}" y2="${sy(min)}" stroke="#d18a37"/><rect x="${x-boxW/2}" y="${sy(q3)}" width="${boxW}" height="${Math.max(2,sy(q1)-sy(q3))}" fill="#ffedc5" stroke="#d18a37" stroke-width="1.5"><title>${escapeHtml(cohortLabel(cohort))}｜N=${group.length}｜Q1 ${Math.round(q1*100)}%｜中位数 ${Math.round(med*100)}%｜Q3 ${Math.round(q3*100)}%</title></rect><line x1="${x-boxW/2}" y1="${sy(med)}" x2="${x+boxW/2}" y2="${sy(med)}" stroke="#a85f12" stroke-width="2"/>`;
-        group.forEach(({p,m},j)=>{const px=x+stableJitter(p.id||p.name||`${cohort}-${j}`),py=sy(m.top),title=`${p.name||'未填写'}｜${cohortLabel(cohort)}｜高绩效 ${Math.round(m.top*100)}%（${m.count} 次）`;svg+=`<circle class="clickable-mark" data-person-key="${encodeURIComponent(personKey(p))}" cx="${px}" cy="${py}" r="4.2" fill="#365fbb" fill-opacity=".78" stroke="#fff" stroke-width="1"><title>${escapeHtml(title)} · 点击查看人员</title></circle>`});
-        svg+=`<text x="${x}" y="${H-27}" text-anchor="middle" fill="#52617a" font-size="10">${escapeHtml(cohortLabel(cohort))} · N=${group.length}</text>`;
+      if(!cohorts.length){wrap.innerHTML='<div class="chart-empty">当前筛选下，没有有效参评人数达到 5 人的届别。</div>';return}
+      const H=410,L=65,R=25,T=32,B=60,innerH=H-T-B,sy=v=>T+(1-v)*innerH,pitch=8,pointR=3,collator=new Intl.Collator('zh-CN-u-co-pinyin');
+      // Adjacent levels closer than one point spacing share lanes, so neither equal nor near-equal ratios collide.
+      const layouts=cohorts.map(cohort=>{const sorted=[...groups.get(cohort)].sort((a,b)=>a.m.ratio-b.m.ratio||collator.compare(a.p.name||'',b.p.name||'')||collator.compare(personKey(a.p),personKey(b.p))),bands=[];sorted.forEach(row=>{const band=bands.at(-1);if(band&&Math.abs(sy(band.at(-1).m.ratio)-sy(row.m.ratio))<pitch)band.push(row);else bands.push([row])});return {cohort,sorted,bands}});
+      const maxBand=Math.max(...layouts.flatMap(l=>l.bands.map(b=>b.length))),stepNeeded=Math.max(130,((maxBand-1)*pitch+pointR*2)/.3),viewport=Math.max(wrap.clientWidth||820,650),W=Math.ceil(Math.max(viewport,L+R+cohorts.length*stepNeeded)),innerW=W-L-R,step=innerW/cohorts.length,cx=i=>L+step*(i+.5),boxW=Math.min(90,step*.3);
+      let svg=`<svg class="chart-svg boxplot-svg" style="min-width:${W}px" viewBox="0 0 ${W} ${H}" role="img" aria-label="有效参评人数至少5人的各届高绩效占比分布，虚线为当前筛选全部有效人员的大盘均值">`;
+      for(let i=0;i<=4;i++){const val=i/4,y=sy(val);svg+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#e9edf3"/><text x="${L-10}" y="${y+4}" text-anchor="end" fill="#748197" font-size="11">${Math.round(val*100)}%</text>`}
+      layouts.forEach(({cohort,sorted},i)=>{const vals=sorted.map(row=>row.m.ratio),q1=quantile(vals,.25),med=quantile(vals,.5),q3=quantile(vals,.75),min=vals[0],max=vals.at(-1),x=cx(i),title=`${cohortLabel(cohort)}｜N=${vals.length}｜Q1 ${boxplotPercent(q1)}｜中位数 ${boxplotPercent(med)}｜Q3 ${boxplotPercent(q3)}｜最小 ${boxplotPercent(min)}｜最大 ${boxplotPercent(max)}`;
+        svg+=`<g class="boxplot-box" data-cohort="${escapeHtml(cohort)}" data-count="${vals.length}"><title>${escapeHtml(title)}</title><line x1="${x}" y1="${sy(max)}" x2="${x}" y2="${sy(min)}" stroke="#d18a37" stroke-width="1.3"/><line x1="${x-boxW*.3}" y1="${sy(max)}" x2="${x+boxW*.3}" y2="${sy(max)}" stroke="#d18a37"/><line x1="${x-boxW*.3}" y1="${sy(min)}" x2="${x+boxW*.3}" y2="${sy(min)}" stroke="#d18a37"/><rect x="${x-boxW/2}" y="${sy(q3)}" width="${boxW}" height="${sy(q1)-sy(q3)}" fill="#fff3d7" fill-opacity=".7" stroke="#e6b263" stroke-width="1.3"/><line x1="${x-boxW/2}" y1="${sy(med)}" x2="${x+boxW/2}" y2="${sy(med)}" stroke="#a9671a" stroke-width="2"/></g><text x="${x}" y="${H-31}" text-anchor="middle" fill="#415775" font-size="12">${escapeHtml(cohortLabel(cohort))}</text><text x="${x}" y="${H-13}" text-anchor="middle" fill="#7e8b9e" font-size="11">N=${vals.length}</text>`;
       });
-      svg+='</svg>';wrap.innerHTML=svg;bindPersonDrilldown(wrap);
+      const baselineY=sy(baseline);svg+=`<line class="boxplot-baseline" data-baseline="${baseline}" x1="${L}" y1="${baselineY}" x2="${W-R}" y2="${baselineY}" stroke="#617895" stroke-width="1.5" stroke-dasharray="6 4"><title>大盘平均高绩效线 ${boxplotPercent(baseline)} · ${rows.length} 人</title></line><rect x="${W-R-205}" y="${baselineY-25}" width="205" height="20" rx="3" fill="#fff" fill-opacity=".94"/><text x="${W-R-5}" y="${baselineY-10}" text-anchor="end" fill="#455d7c" font-size="11" font-weight="700">大盘平均高绩效线 ${boxplotPercent(baseline)}</text>`;
+      layouts.forEach(({cohort,bands},i)=>bands.forEach(band=>band.forEach(({p,m},j)=>{const x=cx(i)+(j-(band.length-1)/2)*pitch,y=sy(m.ratio),color=boxplotColor(m.ratio,baseline),title=`${p.name||'未填写姓名'}｜${p.dept||'未填写'}｜${cohortLabel(cohort)}｜${displayRank(p)}｜高绩效 ${boxplotPercent(m.ratio)}（${m.highCount}/${m.count} 次）｜${m.history.map(([period,grade])=>period+' '+grade).join(' → ')}`;
+        svg+=`<circle class="boxplot-point" tabindex="0" role="button" aria-label="${escapeHtml(title)}；点击查看该届同占比的全部人员" data-boxplot-person="${encodeURIComponent(personKey(p))}" data-boxplot-cohort="${encodeURIComponent(cohort)}" data-boxplot-ratio="${m.ratioKey}" data-ratio="${m.ratio}" cx="${x}" cy="${y}" r="${pointR}" fill="${color}" stroke="#fff" stroke-width=".9"><title>${escapeHtml(title)}</title></circle>`;
+      })));
+      svg+='</svg>';wrap.innerHTML=svg+(W>viewport+1?'<p class="boxplot-scroll-note">同一水平线人数较多，已加宽图表以保证每个人独立可见，可横向滚动查看。</p>':'');bindBoxplotInteractions(wrap);
     }
     function render(){renderSummaryCards();renderRating();renderRankMatrix();renderQuadrant();renderBoxplot()}
     function findColumn(headers, predicate){return headers.findIndex(h=>predicate(clean(h).toLowerCase().replace(/[\s_./-]/g,'')))}
