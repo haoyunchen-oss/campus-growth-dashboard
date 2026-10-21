@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>往届校招分析看板</title>
+  <title>人才分析看板</title>
   <style>
     :root{--ink:#17243b;--muted:#718096;--line:#e5eaf1;--paper:#f4f7fb;--card:#fff;--blue:#3468d4;--blue2:#dce8ff;--teal:#2b9c91;--amber:#e6a23c;--rose:#d56e76;--violet:#8b78ca;--shadow:0 8px 28px rgba(31,54,86,.055)}
     *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.5}
@@ -59,6 +59,33 @@
     @media(max-width:900px){:root{--panel-padding:20px}.summary-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.summary-headcount{grid-column:auto;display:flex}.summary-headcount .summary-departments{margin-bottom:12px}.summary-description{min-height:72px}}
     @media(max-width:700px){:root{--panel-padding:18px;--panel-gap:16px}.summary-grid{grid-template-columns:1fr}.summary-description{min-height:0}.panel-head,.matrix-head{flex-wrap:wrap}.notice-card{padding:18px}.summary-heading{align-items:center}}
     #boxplotChart{overflow:hidden}#boxplotChart .boxplot-svg{width:100%;min-width:0;max-width:100%;height:auto}
+
+    /* Shared explanation typography and the approved v24 layout. */
+    [hidden]{display:none!important}
+    .template-download{text-decoration:none;display:inline-flex;align-items:center;white-space:nowrap}
+    .summary-card{min-height:322px}.summary-description{min-height:24px}
+    .summary-chart{margin-top:16px}.summary-count{margin-top:36px}.summary-departments{margin-top:auto;margin-bottom:0}
+    .panel-desc,.summary-description,.chart-caption,.analysis-guide,.analysis-guide p,.analysis-guide h3,.stat-detail,.heat-legend,.notice-card p,.quadrant-size-note,.rating-summary-meta{font-family:inherit;font-size:var(--panel-note-size);line-height:1.75}
+    .panel-desc{color:#65748a;max-width:1120px}.chart-caption{color:#65748a}
+    .analysis-guide{border-top:1px solid #e7edf5;margin-top:20px;padding-top:16px;color:#65748a}
+    .analysis-guide h3{font-weight:700;color:#334b6d;margin:0 0 10px}
+    .guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px}
+    .quadrant-guide .guide-grid>p:nth-child(even),.boxplot-guide .guide-grid>p:nth-child(even){text-align:right}
+    .boxplot-guide{border-top:0;margin-top:0;margin-bottom:20px;padding-top:0}
+    .analysis-guide p{margin:0}.guide-grid strong{display:block;margin-bottom:4px;color:#334b6d}
+    .guide-grid .guide-benchmark{color:#ae245c}.guide-grid .guide-potential{color:#21867a}.guide-grid .guide-review{color:#7857a6}.guide-grid .guide-observe{color:#956519}
+    .analysis-guide .guide-definition{margin-top:14px}.guide-definition strong{color:#334b6d}
+    .heat{table-layout:fixed;min-width:0}.heat th{height:40px}.heat .ratio-cell,.heat .rank-head{height:64px;padding:7px 5px;min-width:0;position:relative;vertical-align:middle}
+    .heat .rank-head{white-space:normal;overflow-wrap:anywhere}.heat th{overflow-wrap:anywhere}
+    .heat .ratio-cell.fire{outline:2px solid #d98a38;outline-offset:-2px}.heat .cell-alert{position:absolute;right:7px;top:5px;font-size:12px;font-weight:750;line-height:16px;background:#fff3d7;color:#895b15;border-radius:50%;width:16px;height:16px}
+    .matrix-diagnosis{margin:0 0 14px}.heat-legend{display:flex;align-items:center;justify-content:center;gap:14px 20px;flex-wrap:wrap;margin-top:18px;color:#65748a}
+    .heat-scale{width:240px;max-width:100%}.heat-gradient{height:10px;border-radius:5px;background:linear-gradient(90deg,#eff4ff,#315fc5)}.heat-ticks{display:flex;justify-content:space-between;margin-top:3px}
+    .rating-legend-label{padding:4px 0}
+    .boxplot-median-key{display:inline-block;width:24px;flex:none;border-top:4px solid #4f46e5}.median-legend{flex-basis:100%}
+    .boxplot-stat{cursor:pointer;outline:none}.boxplot-stat:hover line:last-child,.boxplot-stat:focus-visible line:last-child{stroke-width:5}
+    .stat-detail{margin:12px 0 0;padding:10px 13px;color:#423a94;background:#f5f4ff;border-radius:7px}
+    @media(max-width:900px){.summary-description{min-height:48px}}
+    @media(max-width:700px){.guide-grid{grid-template-columns:1fr;gap:14px}.summary-card{min-height:0}.summary-description{min-height:0}.summary-count{margin-top:20px}.heat{min-width:540px}.heat-legend{justify-content:flex-start}}
   </style>
 </head>
 <body>
@@ -66,24 +93,16 @@
     <header class="top">
       <div>
         <p class="eyebrow">People Analytics · Campus Hiring</p>
-        <h1 class="title">往届校招分析看板</h1>
-        <p class="subtitle">上传校招汇总表后，筛选绩效表现与届别结构；文件仅在本地浏览器处理。</p>
+        <h1 class="title">人才分析看板</h1>
       </div>
       <div class="top-actions">
         <span class="snapshot" id="snapshotLabel">尚未导入数据</span>
+        <a class="btn template-download" id="downloadTemplate" title="使用原模板填写；请按岗位将 Sheet1 命名为策划、美术或程序，并将绩效列改为具体考核周期。" href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,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" download="人员分析模版.xlsx">下载数据模板</a>
         <label class="btn primary" for="fileInput">上传最新版 Excel</label>
         <input class="sr-only" type="file" id="fileInput" accept=".xlsx,.xls">
         <button class="btn" id="resetBtn" type="button">清除已导入数据</button>
       </div>
     </header>
-
-    <section class="banner" aria-label="看板目标">
-      <div class="banner-copy">
-        <h2 class="banner-title">分析目标：识别值得深入核实的标杆候选人</h2>
-        <p>四象限按当前职级和 高绩效占比分组，仅用于发现待核实样本；职级与司龄不能代替真实晋升记录，也不直接构成高潜结论。</p>
-      </div>
-      <span class="banner-tag">仅本地浏览器处理 · 不向网页上传数据</span>
-    </section>
 
     <section class="filters" aria-label="筛选条件">
       <div class="filter"><label for="departmentFilter">岗位序列</label><select id="departmentFilter"><option value="全部">全部岗位</option><option value="策划">策划</option><option value="美术">美术</option><option value="程序">程序</option></select></div>
@@ -91,44 +110,39 @@
       <div class="filter"><label for="tenureFilter">司龄（Tenure，年）</label><select id="tenureFilter"><option value="全部">全部司龄</option></select></div>
       <div class="filter"><label for="reportingLineFilter">直属负责人（Reporting Line）</label><select id="reportingLineFilter"><option value="全部">全部负责人</option></select></div>
       <button class="btn" id="resetFiltersBtn" type="button">重置筛选</button>
-      <div class="filter-note" id="filterNote" aria-live="polite">四项筛选同时生效，所有图表、汇总和人员名单同步更新。</div>
     </section>
 
     <section class="summary-grid" id="summaryCards" aria-label="在职校招基础汇总">
       <article class="summary-card summary-headcount">
-        <div class="summary-heading"><h2>校招在职人数</h2><span class="summary-badge">当前筛选</span></div>
-        <p class="summary-description">岗位、届别、司龄、直属负责人联动</p>
+        <div class="summary-heading"><h2>在职人数</h2></div>
         <div class="summary-count" id="activePeopleCount" aria-live="polite">—</div>
         <div class="summary-departments" id="activePeopleByDept"></div>
-        <p class="summary-note" id="activePeopleNote">上传 Excel 后，统计当前在职人员。</p>
       </article>
       <article class="summary-card">
-        <div class="summary-heading"><h2>职级分布</h2><span class="summary-badge">人数 · 占比</span></div>
+        <div class="summary-heading"><h2>职级分布</h2></div>
         <p class="summary-description">按职级顺序：I → II → S1 → S2 → S3</p>
         <div class="summary-chart" id="rankDistributionChart"></div>
-        <p class="summary-note" id="rankDistributionNote">点击条形或标签查看姓名。</p>
       </article>
       <article class="summary-card">
-        <div class="summary-heading"><h2>司龄占比</h2><span class="summary-badge">Tenure</span></div>
-        <p class="summary-description">小于1年 / 1–3年 / 3–5年 / 5年及以上</p>
+        <div class="summary-heading"><h2>司龄占比</h2></div>
+        <p class="summary-description" id="averageTenure" aria-live="polite">当前平均司龄：—</p>
         <div class="summary-chart" id="tenureDistributionChart"></div>
-        <p class="summary-note" id="tenureDistributionNote">区间含下限、不含上限；点击环形图查看姓名。</p>
       </article>
     </section>
 
     <section class="panel matrix-panel">
-      <div class="matrix-head"><div><h2 class="panel-title">校招届数 * 当前职级（热力图）</h2><p class="panel-desc">单元格显示人数及其占该届人数比例；深色表示人员集中，🔥提示22届S1高占比。全部岗位按对应职级层级合并。</p></div><span class="banner-tag">跟随全局筛选</span></div>
+      <div class="matrix-head"><div><h2 class="panel-title">校招届数 * 当前职级（热力图）</h2><p class="panel-desc">观察各届校招生的成长位置与职级分布，点击可查看具体人员。关注深色高占比格子，若出现人员高度集中，建议结合晋升记录，进一步评估晋升标准与发展通道。</p></div></div>
+      <div id="matrixDiagnosis" class="matrix-diagnosis warn" aria-live="polite" hidden></div>
       <div class="heat-wrap" id="rankMatrix"></div>
-      <div class="matrix-diagnosis" id="matrixDiagnosis">导入 Excel 后，将按全局筛选动态计算卡扣提示。</div>
+      <div class="heat-legend"><span>该职级占本届人数比例</span><div class="heat-scale"><div class="heat-gradient"></div><div class="heat-ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div></div><span>颜色越深，占比越高</span></div>
     </section>
 
     <section class="grid">
       <article class="panel analysis-panel">
-        <div class="panel-head"><div><h2 class="panel-title">绩效健康度</h2><p class="panel-desc" id="ratingScopeDescription">按全局筛选展示 2022–2026 年实际考核周期；条形展示评级构成，圆点展示周期均值。</p></div><span class="banner-tag" id="ratingCoverageTag">全部岗位</span></div>
+        <div class="panel-head"><div><h2 class="panel-title">绩效健康度</h2><p class="panel-desc" id="ratingScopeDescription">左侧展示各周期绩效结构的分布演变，右侧呈现平均绩效走势，用于快速判断团队绩效是持续改善还是出现回落。</p></div><span class="banner-tag" id="ratingCoverageTag">全部岗位</span></div>
         <div class="rating-summary" id="ratingSummary" aria-live="polite"></div>
         <div class="rating-chart-scroll" id="ratingChart"></div>
         <div class="rating-legend" id="ratingLegend"></div>
-        <p class="small-note">高绩效占比 = B+、A-、A 人数 ÷ 本周期有效参评人数。点击色块或高绩效占比查看名单，仅显示该周期有对应评级的人员。百分比按整数显示。</p>
       </article>
     </section>
 
@@ -136,17 +150,31 @@
 
     <section class="visual-grid" aria-label="绩效可视化分析">
       <article class="panel analysis-panel">
-        <div class="panel-head"><div><h2 class="panel-title">标杆识别四象限</h2><p class="panel-desc">横轴为 高绩效占比，纵轴为当前职级；参考线固定为 60% 与 S1 / S2 分界。</p></div></div>
+        <div class="panel-head"><div><h2 class="panel-title">标杆识别四象限</h2><p class="panel-desc">结合高绩效占比与当前职级，将员工分为四象限，快速定位标杆候选与高潜观察人群。</p></div></div>
         <div id="quadrantChart" class="chart-wrap"></div>
         <div id="quadrantLegend" class="chart-legend"></div>
-        <p class="chart-caption">高绩效占比 = B+、A-、A 评级次数 ÷ 有效考核次数。气泡面积与司龄成比例，筛选前后使用同一尺寸标准；重叠超过 3 人时合并，面积取组内平均司龄，数字表示人数。司龄缺失或为 0 时以小号虚线气泡表示。点击任一气泡，查看姓名、序列、司龄、职级、高绩效率和绩效趋势。短司龄且职级较高可作为快速成长线索，但当前职级与司龄不能代替真实晋升记录。</p>
+        <div class="analysis-guide quadrant-guide" aria-label="四象限解读">
+          <h3>如何解读</h3>
+          <div class="guide-grid">
+            <p><strong class="guide-benchmark">↗ 右上 · 标杆候选</strong>高职级、高绩效率，关注可复制的优秀经验，给予认可与保留。</p>
+            <p><strong class="guide-potential">↘ 右下 · 高潜观察</strong>较低职级、高绩效率，关注承担更复杂任务的能力与晋升准备度。</p>
+            <p><strong class="guide-review">↖ 左上 · 骨干复核</strong>高职级、高绩效占比偏低，结合近期表现，重点沟通与辅导。</p>
+            <p><strong class="guide-observe">↙ 左下 · 有待观察</strong>较低职级、绩效待提升，结合司龄关注成长适应与绩效改善。</p>
+          </div>
+        </div>
       </article>
       <article class="panel analysis-panel">
-        <div class="panel-head"><div><h2 class="panel-title">各届高绩效占比分布</h2><p class="panel-desc">同届同占比的圆点均匀散开；悬浮看个人，点击任一点查看该届同占比的全部人员。</p></div><span class="banner-tag">有效人数 ≥5</span></div>
-        <div id="boxplotSummary" class="boxplot-summary" aria-live="polite"></div>
+        <div class="panel-head"><div><h2 class="panel-title">各届高绩效占比分布</h2><p class="panel-desc">横向对比不同届别校招生的总体质量，判断哪一届整体更优秀或培养效果更好。纵向观察同一届内部人员的差距拉开程度，识别标杆与待观察群体。</p></div><span class="banner-tag">有效人数 ≥5</span></div>
+        <div class="analysis-guide boxplot-guide" aria-label="箱型图分析建议">
+          <h3>分析建议：先横向（比届别），后纵向（看个人）</h3>
+          <div class="guide-grid">
+            <p><strong>横向：识别哪届比较优秀</strong>箱子位置（中位线）：中位线越高，说明整体战力越强，中位线越低，说明大部分员工还在适应期或产出偏弱。<br>看箱子长短：箱子越长，说明绩效两极分化越严重；箱子短说明绩效表现比较平均。</p>
+            <p><strong>纵向：识别标杆和待关注人员</strong>箱子顶端（P75）：代表该届绩效表现较好的标杆人员<br>箱子底端（P25）：代表该届绩效需要重点观察人员</p>
+          </div>
+        </div>
         <div id="boxplotChart" class="chart-wrap"></div>
-        <div id="boxplotLegend" class="chart-legend"><span class="chart-legend-item"><i class="chart-legend-dot" style="background:#e83e68"></i>高于大盘均值</span><span class="chart-legend-item"><i class="chart-legend-dot" style="background:#3b82f6"></i>等于大盘均值</span><span class="chart-legend-item"><i class="chart-legend-dot" style="background:#d99012"></i>低于大盘均值</span><span class="chart-legend-item"><i class="boxplot-baseline-key"></i>当前筛选的大盘平均高绩效线</span></div>
-        <p class="chart-caption">数据口径：仅展示当前筛选下有效参评人数 ≥5 的届别，N 为至少有一次有效评级的人数。本图高绩效占比 = S、A、A-、B+ 次数 ÷ 2022–2026 年历史有效参评次数；空白评级不计入。大盘均值为当前筛选中所有有效参评人员的个人占比均值，包含不足 5 人的届别。箱体为 Q1–Q3，中线为中位数，须线为最小值和最大值。颜色表示相对大盘的位置。</p>
+        <p id="boxplotStatDetail" class="stat-detail" aria-live="polite" hidden></p>
+        <div id="boxplotLegend" class="chart-legend"><span class="chart-legend-item"><i class="chart-legend-dot" style="background:#e83e68"></i>高于整体平均</span><span class="chart-legend-item"><i class="chart-legend-dot" style="background:#3b82f6"></i>等于整体平均</span><span class="chart-legend-item"><i class="chart-legend-dot" style="background:#d99012"></i>低于整体平均</span><span class="chart-legend-item"><i class="boxplot-baseline-key"></i>整体平均</span><span class="chart-legend-item median-legend"><i class="boxplot-median-key"></i>中位线：该届50%以上的人能达到的高绩效占比，用于评估该届的平均表现。</span></div>
       </article>
     </section>
 
@@ -157,7 +185,7 @@
 
     <dialog class="people-dialog" id="peopleDrilldown" aria-labelledby="peopleDrilldownTitle"><div class="people-dialog-head"><div><h2 class="people-dialog-title" id="peopleDrilldownTitle">人员明细</h2><p class="people-dialog-subtitle" id="peopleDrilldownSubtitle"></p></div><button class="people-dialog-close" type="button" id="peopleDrilldownClose">关闭</button></div><div class="people-dialog-body" id="peopleDrilldownBody"></div></dialog>
 
-    <footer class="foot"><span>v23 · 在职人员基础汇总 · 数据仅在当前浏览器会话处理 · 刷新页面后清除本次导入数据</span><span>四象限为规则分组；晋升速度需结合历史职级和生效日期判断</span></footer>
+    <footer class="foot"><span>v26 · 2026-10-21 更新 · 数据仅在当前浏览器会话处理 · 刷新页面后清除本次导入数据</span><span>四象限为规则分组；晋升速度需结合历史职级和生效日期判断</span></footer>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" crossorigin="anonymous"></script>
@@ -219,8 +247,6 @@
         $(id).innerHTML=`<option value="全部">${filterOptionLabel(key,'全部')}</option>`+values.map(value=>{const count=counts.get(value)||0;return `<option value="${escapeHtml(value)}"${people.length&&!count&&filters[key]!==value?' disabled':''}>${escapeHtml(filterOptionLabel(key,value))}${key==='dept'?'':`（${count}人）`}</option>`}).join('');
         $(id).value=filters[key];
       }
-      const n=filteredPeople().length;
-      $('filterNote').textContent=personalRows?`当前 ${n} / ${people.length} 人 · ${globalFilterLabel()}。所有图表与名单同步筛选；司龄取 Excel 的 Tenure，空值可选“未填写”。`:'上传 Excel 后，四项筛选同时生效；人数选项按其他已选条件计算，空值归入“未填写”。';
     }
     function closePeopleDetails(){const dialog=$('peopleDrilldown');if(dialog.open){if(typeof dialog.close==='function')dialog.close();else dialog.removeAttribute('open')}const tip=$('quadrantHoverTooltip');if(tip)tip.style.display='none'}
     function applyGlobalFilters(){closePeopleDetails();refreshGlobalFilters();render()}
@@ -269,9 +295,10 @@
       const empty=loaded?'当前筛选没有在职人员。':'上传 Excel 后显示分布。';
       $('activePeopleCount').innerHTML=loaded?`<button class="summary-count-button" type="button" data-summary-type="active" data-summary-key="all" data-count="${n}"${n?'':' disabled'} aria-label="校招在职 ${n} 人，点击查看姓名">${n.toLocaleString('zh-CN')}<small>人</small>${n?'<span class="summary-count-link">点击查看在职名单 ↗</span>':''}</button>`:'—';
       $('activePeopleByDept').innerHTML=loaded?['策划','美术','程序'].map((dept,i)=>{const count=rows.filter(p=>p.dept===dept).length;return `<button class="summary-dept" type="button" data-summary-type="dept" data-summary-key="${dept}" data-count="${count}"${count?'':' disabled'}><span>${dept}</span><span class="summary-dept-track"><i style="width:${n?count/n*100:0}%;background:${['#416ed2','#6e94df','#a4bcec'][i]}"></i></span><strong>${count} 人</strong></button>`}).join(''):'';
-      const selected=filteredPeople(),assumed=selected.filter(p=>p.activeSource==='assumed').length,unconfirmed=selected.filter(p=>p.activeSource==='column'&&!['Y','N'].includes(p.activeStatus)).length;
-      $('activePeopleNote').textContent=!loaded?'上传 Excel 后，统计当前在职人员。':assumed===selected.length&&selected.length?'当前文件无“在职”列，按本批全员在职统计。':`按“在职=Y”统计${assumed?`；${assumed}人未提供该列，按在职计入`:''}${unconfirmed?`；${unconfirmed}人在职状态未明确，未计入`:''}。`;
-      if(!n){['rankDistributionChart','tenureDistributionChart'].forEach(id=>$(id).innerHTML=`<div class="empty">${empty}</div>`);$('rankDistributionNote').textContent='点击条形或标签查看姓名。';$('tenureDistributionNote').textContent='区间含下限、不含上限；点击环形图查看姓名。';bindSummaryDrilldown();return}
+      const tenures=rows.map(p=>p.tenure).filter(t=>Number.isFinite(t)&&t>=0);
+      $('averageTenure').textContent='当前平均司龄：'+(tenures.length?Number((tenures.reduce((a,b)=>a+b,0)/tenures.length).toFixed(2))+'年':'—');
+      $('averageTenure').title=`当前筛选在职人员中，${tenures.length} 人有有效司龄；空白不计入均值。`;
+      if(!n){['rankDistributionChart','tenureDistributionChart'].forEach(id=>$(id).innerHTML=`<div class="empty">${empty}</div>`);bindSummaryDrilldown();return}
       renderRankDistribution(rows);renderTenureDistribution(rows);bindSummaryDrilldown();
     }
     function renderRankDistribution(people){
@@ -289,7 +316,6 @@
         svg+=`<text x="326" y="${cy+4}" text-anchor="end" fill="#253e66" font-size="12" font-weight="700">${n}人</text><text x="378" y="${cy+4}" text-anchor="end" fill="#7c8aa0" font-size="12">${pcts[i]}%</text></g>`;
       });
       $('rankDistributionChart').innerHTML=svg+'</svg>';
-      $('rankDistributionNote').textContent=`条长表示人数；占比以当前 ${people.length} 名在职人员为分母。点击查看姓名。`;
     }
     function donutPath(start,end,cx=86,cy=110,outer=73,inner=52){
       const point=(r,a)=>[cx+r*Math.cos((a-90)*Math.PI/180),cy+r*Math.sin((a-90)*Math.PI/180)].join(' '),mid=(start+end)/2;
@@ -306,7 +332,6 @@
         angle+=span;
       });
       $('tenureDistributionChart').innerHTML=svg+'</svg>';
-      $('tenureDistributionNote').textContent='区间含下限、不含上限；未填写单列，均计入占比分母。';
     }
     const HEALTH_BANDS=[
       {key:'A*',label:'A*（A-/A/A+/S）',color:'#2f855a',matches:r=>HEALTH_TOP_RATINGS.has(r)},
@@ -365,20 +390,25 @@
       if(observed.has('C'))ticks.push(['C',2]);if(observed.has('B-'))ticks.push(['B-',2.7]);if(observed.has('S'))ticks.push(['S',4.5]);
       return ticks.sort((a,b)=>a[1]-b[1]);
     }
+    function healthChangeSummary(rows){
+      const latest=rows.at(-1),prior=rows.at(-2);
+      if(!prior)return {delta:null,text:'暂无上一考核周期记录'};
+      const coverage=prior.depts.join('|')!==latest.depts.join('|')?'；参评岗位范围有变化':'';
+      if(!prior.high)return {delta:null,text:latest.high?`上期 ${prior.label} 为 0%，本期 ${Math.round(latest.high*100)}%，不计算环比${coverage}`:`较${prior.label}持平（0%）${coverage}`};
+      const delta=(latest.high-prior.high)/prior.high*100,abs=Math.abs(delta),amount=abs<.5?'不足1%':Math.round(abs)+'%';
+      return {delta,text:(abs<1e-9?`较${prior.label}持平（0%）`:`较${prior.label}${delta>0?'上升':'下降'} ${amount}（环比）`)+coverage};
+    }
     function renderRating(){
       const wrap=$('ratingChart'),legend=$('ratingLegend'),summary=$('ratingSummary');
       if(!wrap||!legend)return;legend.innerHTML='';if(summary)summary.innerHTML='';
       const dept=$('departmentFilter').value,scope=globalFilterLabel(),people=healthRatingRows(),rows=healthPeriodStats(people);
       const coverage=$('ratingCoverageTag');if(coverage)coverage.textContent=(dept==='全部'?'全部岗位':dept)+' · '+people.length+'人';
-      const description=$('ratingScopeDescription');if(description)description.textContent=scope+' · 2022–2026 年实际考核周期；条形展示评级构成，圆点展示周期均值。';
+      const description=$('ratingScopeDescription');if(description)description.textContent='左侧展示各周期绩效结构的分布演变，右侧呈现平均绩效走势，用于快速判断团队绩效是持续改善还是出现回落。';
       const missing=healthMissingSheets.filter(d=>dept==='全部'||d===dept);
       const missingNotice=healthRows&&missing.length?'<div class="matrix-diagnosis warn">当前文件缺少或未读取到有效人员：'+missing.map(escapeHtml).join('、')+'。下方仅展示已读取的有效评级。</div>':'';
       if(!rows.length){wrap.innerHTML=missingNotice+'<div class="chart-empty">'+(healthRows?'当前筛选在 2022–2026 年没有有效评级。':'请上传包含策划、美术、程序工作表的 Excel。')+'</div>';return}
-      const latest=rows[rows.length-1],prior=rows.find(r=>healthPeriodMatch(r,latest.year-1,latest.phase));
-      const comparable=prior&&prior.depts.join('|')===latest.depts.join('|');
-      const delta=comparable?(latest.high-prior.high)*100:null;
-      const deltaText=!prior?'暂无上一年同周期记录':!comparable?'与'+prior.label+'的参评岗位覆盖不同，暂不作同比':Math.abs(delta)<.5?'较'+prior.label+'基本持平（变动不足 1 个百分点）':'较'+prior.label+(delta>0?'上升 ':'下降 ')+Math.round(Math.abs(delta))+' 个百分点';
-      if(summary)summary.innerHTML='<div class="rating-summary-card"><div class="rating-summary-label">最新周期高绩效占比（B+ / A- / A）</div><div class="rating-summary-value '+(delta>=.5?'good':delta<=-.5?'warn':'')+'">'+Math.round(latest.high*100)+'%</div><div class="rating-summary-meta">'+escapeHtml(scope+' · '+latest.label)+' · 高绩效 '+latest.highCount+' / 有效参评 '+latest.n+' 人<br>'+escapeHtml(deltaText)+'</div></div>';
+      const latest=rows.at(-1),{delta,text:deltaText}=healthChangeSummary(rows);
+      if(summary)summary.innerHTML='<div class="rating-summary-card"><div class="rating-summary-label">最新周期高绩效占比（B+ / A- / A）</div><div class="rating-summary-value '+(delta>0?'good':delta<0?'warn':'')+'">'+Math.round(latest.high*100)+'%</div><div class="rating-summary-meta">'+escapeHtml(scope+' · '+latest.label)+' · 高绩效 '+latest.highCount+' / 有效参评 '+latest.n+' 人<br><span title="环比变化＝（本期高绩效占比－上期高绩效占比）÷上期高绩效占比">'+escapeHtml(deltaText)+'</span></div></div>';
       const W=panelChartWidth(wrap,900),rowTop=78,rowH=Math.max(48,(ANALYSIS_CHART_HEIGHT-rowTop-39)/rows.length),H=rowTop+rows.length*rowH+39,barX=116,barW=350+(W-900)*.65,statsX=barX+barW+24,meanX=statsX+166,meanW=W-meanX-26;
       const gradeTicks=healthGradeTicks(rows),minGrade=gradeTicks[0][1],maxGrade=gradeTicks[gradeTicks.length-1][1];
       const gradeX=v=>meanX+(v-minGrade)/(maxGrade-minGrade)*meanW;
@@ -399,9 +429,9 @@
       const meanY=i=>rowTop+i*rowH+13;
       if(rows.length>1)svg+='<polyline points="'+rows.map((r,i)=>gradeX(r.mean)+','+meanY(i)).join(' ')+'" fill="none" stroke="#223653" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>';
       rows.forEach((r,i)=>{const x=gradeX(r.mean),y=meanY(i),grade=healthGradeBand(r.mean,gradeTicks),nearEnd=x>meanX+meanW-40;svg+='<circle class="rating-mean-point" cx="'+x+'" cy="'+y+'" r="6" fill="#fff" stroke="#223653" stroke-width="2"><title>'+escapeHtml(r.label)+'平均绩效约为 '+grade+'；'+r.n+' 人参与均值</title></circle><text x="'+(nearEnd?x-10:x+10)+'" text-anchor="'+(nearEnd?'end':'start')+'" y="'+(y-9)+'" fill="#223653" font-size="11" font-weight="700">'+grade+'</text>'});
-      svg+='<text x="'+barX+'" y="'+(H-10)+'" fill="#8090a3" font-size="11">点击色块或高绩效占比，查看对应周期的参评名单</text></svg>';
+      svg+='</svg>';
       wrap.innerHTML=missingNotice+svg;
-      legend.innerHTML=HEALTH_BANDS.map(b=>'<span class="rating-legend-item"><i style="background:'+b.color+'"></i>'+b.label+'</span>').join('')+'<span class="rating-legend-item"><i class="rating-legend-point"></i>圆点：该周期平均绩效</span>';
+      legend.innerHTML=HEALTH_BANDS.map(b=>'<span class="rating-legend-item rating-legend-label"><i style="background:'+b.color+'"></i>'+b.label+'</span>').join('')+'<span class="rating-legend-item"><i class="rating-legend-point"></i>圆点：该周期平均绩效</span>';
       bindRatingDrilldown(wrap);
     }
     function healthGradeBand(score,grades=[['C',2],['B-',2.7],['B',3],['B+',3.3],['A-',3.7],['A',4],['S',4.5]]){
@@ -497,33 +527,32 @@
       const combined={label:'19-20届',cohorts:early.flatMap(b=>b.cohorts),people:early.flatMap(b=>b.people)};
       return [...buckets.filter(b=>!early.includes(b)),combined].sort((a,b)=>Math.min(...a.cohorts.map(cohortNumber))-Math.min(...b.cohorts.map(cohortNumber)));
     }
+    const MATRIX_MIN_PEOPLE=5;
+    function heatColor(ratio){
+      const light=[239,244,255],dark=[49,95,197],p=Math.max(0,Math.min(1,ratio));
+      return '#'+light.map((v,i)=>Math.round(v+(dark[i]-v)*p).toString(16).padStart(2,'0')).join('');
+    }
     function renderRankMatrix(){
-      const people=filteredPeople();
-      const buckets=matrixCohortBuckets(people);
-      if(!people.length||!buckets.length){$('rankMatrix').innerHTML='<div class="empty">'+(personalRows?'当前筛选没有人员记录。':'导入 Excel 后，查看届别与职级分布。')+'</div>'; $('matrixDiagnosis').className='matrix-diagnosis';$('matrixDiagnosis').textContent='暂无可计算的职级分布。';return}
+      const people=filteredPeople(),buckets=matrixCohortBuckets(people),diagnosis=$('matrixDiagnosis');
+      diagnosis.hidden=true;diagnosis.innerHTML='';
+      if(!people.length||!buckets.length){$('rankMatrix').innerHTML='<div class="empty">'+(personalRows?'当前筛选没有人员记录。':'导入 Excel 后，查看届别与职级分布。')+'</div>';return}
       const rankDefs=[5,4,3,2,1].map(key=>({key,label:rankLabel(key)}));
-      const counts=buckets.map(b=>{const byRank=new Map(rankDefs.map(r=>[r.key,0]));let unknown=0;b.people.forEach(p=>{const score=rankScore(p);if(byRank.has(score))byRank.set(score,byRank.get(score)+1);else unknown++});return {bucket:b,byRank,unknown,total:b.people.length}});
-      const hasUnknown=counts.some(c=>c.unknown>0),rows=rankDefs.filter(r=>counts.some(c=>c.byRank.get(r.key)>0));
-      if(hasUnknown)rankDefs.push({key:null,label:'未填写/未映射'});
-      const displayed=rows.length?rankDefs.filter(r=>r.key===null||rows.some(x=>x.key===r.key)):rankDefs;
-      let html='<table class="heat"><thead><tr><th class="rank-head">职级 \\ 届别</th>'+counts.map(c=>`<th>${escapeHtml(c.bucket.label)}</th>`).join('')+'</tr></thead><tbody>';
+      const counts=buckets.map(bucket=>{const byRank=new Map(rankDefs.map(r=>[r.key,0]));let unknown=0;bucket.people.forEach(p=>{const score=rankScore(p);if(byRank.has(score))byRank.set(score,byRank.get(score)+1);else unknown++});return {bucket,byRank,unknown,total:bucket.people.length}});
+      if(counts.some(c=>c.unknown))rankDefs.push({key:null,label:'未填写/未映射'});
+      let html='<table class="heat"><colgroup><col style="width:96px">'+counts.map(()=>'<col>').join('')+'</colgroup><thead><tr><th class="rank-head">职级 / 届别</th>'+counts.map(c=>`<th>${escapeHtml(c.bucket.label)}</th>`).join('')+'</tr></thead><tbody>';
       const cautions=[];
-      displayed.forEach(rank=>{
+      rankDefs.forEach(rank=>{
         html+=`<tr><td class="rank-head">${rank.label}</td>`;
         counts.forEach(c=>{
           const n=rank.key===null?c.unknown:c.byRank.get(rank.key)||0,pct=c.total?n/c.total:0;
-          const is22=c.bucket.cohorts.length===1&&c.bucket.cohorts[0]==='22',fire=is22&&rank.key===3&&pct>=.7;
-          const alpha=n?(.08+.7*pct).toFixed(2):0,style=n?`background:rgba(49,95,197,${alpha});color:${pct>=.5?'#fff':'#35445e'}`:'';
-          if(fire)cautions.push({n,total:c.total,pct});
-          const drill=n?`clickable-mark" data-matrix-cohorts="${encodeURIComponent(c.bucket.cohorts.join(','))}" data-matrix-rank="${rank.key===null?'unknown':rank.key}" data-count="${n}" data-matrix-label="${escapeHtml(rank.label)}" data-matrix-cohort-label="${escapeHtml(c.bucket.label)}" tabindex="0" role="button`:'';
-          html+=`<td class="ratio-cell ${fire?'fire':''} ${drill}" style="${style}" title="${escapeHtml(c.bucket.label)} · ${escapeHtml(rank.label)} · ${n}/${c.total}（${(pct*100).toFixed(1)}%）${n?' · 点击查看人员':''}"><div class="cell-count">${n||'—'}</div><div class="cell-ratio">${n?(pct*100).toFixed(1)+'%':''}</div>${fire?'<div class="cell-ratio">🔥</div>':''}</td>`;
-        });
-        html+='</tr>';
+          const attention=rank.key!==null&&pct>.7&&n>=MATRIX_MIN_PEOPLE;
+          if(attention)cautions.push({cohort:c.bucket.label,rank:rank.label,n,total:c.total,pct});
+          const attrs=n?` tabindex="0" role="button" data-matrix-cohorts="${encodeURIComponent(c.bucket.cohorts.join(','))}" data-matrix-rank="${rank.key===null?'unknown':rank.key}" data-count="${n}" data-matrix-label="${escapeHtml(rank.label)}" data-matrix-cohort-label="${escapeHtml(c.bucket.label)}"`:'';
+          html+=`<td class="ratio-cell${attention?' fire':''}${n?' clickable-mark':''}"${attrs} style="background:${heatColor(pct)};color:${pct>=.6?'#fff':'#35445e'}" title="${escapeHtml(c.bucket.label)} · ${escapeHtml(rank.label)} · ${n}/${c.total}（${(pct*100).toFixed(1)}%）${n?' · 点击查看人员':''}"><div class="cell-count">${n||'—'}</div><div class="cell-ratio">${n?(pct*100).toFixed(1)+'%':'&nbsp;'}</div>${attention?'<span class="cell-alert" aria-label="建议关注">!</span>':''}</td>`;
+        });html+='</tr>';
       });
-      html+='</tbody></table>';$('rankMatrix').innerHTML=html;bindMatrixDrilldown($('rankMatrix'));
-      const diagnosis=$('matrixDiagnosis');
-      if(cautions.length){const c=cautions[0];diagnosis.className='matrix-diagnosis warn';diagnosis.innerHTML=`卡扣预警线索：22届 S1占比 ${(c.pct*100).toFixed(1)}%（${c.n}/${c.total}），已达到 70% 提示线；建议结合个人晋升记录和岗位要求进一步核实。`}
-      else{diagnosis.className='matrix-diagnosis';diagnosis.textContent='当前筛选未达到“22届 S1占比≥70%”提示线。职级快照用于定位集中分布，不能单独证明晋升卡扣。'}
+      $('rankMatrix').innerHTML=html+'</tbody></table>';bindMatrixDrilldown($('rankMatrix'));
+      if(cautions.length){diagnosis.hidden=false;diagnosis.title='提示条件：同格人数至少5人，且占该届人数超过70%。';diagnosis.innerHTML='<strong>建议关注：</strong>'+cautions.map(c=>`${escapeHtml(c.cohort)} ${escapeHtml(c.rank)} 占比 ${Number((c.pct*100).toFixed(1))}%（${c.n}/${c.total}）`).join('；')+'。建议结合岗位要求与晋升记录，进一步评估发展通道。'}
     }
     function ratedMetrics(person){
       const vals=Object.values(person.ratings||{}).filter(r=>Number.isFinite(SCORE[r]));
@@ -653,6 +682,7 @@
       return {rows,baseline,groups,cohorts};
     }
     function boxplotPercent(ratio){return `${Number((ratio*100).toFixed(1))}%`}
+    function boxplotStatsText(cohort,vals){return `${cohortLabel(cohort)}｜N=${vals.length}｜最小值 ${boxplotPercent(vals[0])}｜最大值 ${boxplotPercent(vals.at(-1))}｜P25 ${boxplotPercent(quantile(vals,.25))}｜中位值 ${boxplotPercent(quantile(vals,.5))}｜P75 ${boxplotPercent(quantile(vals,.75))}`}
     function boxplotColor(ratio,baseline){return Math.abs(ratio-baseline)<1e-12?'#3b82f6':ratio>baseline?'#e83e68':'#d99012'}
     function boxplotTrend(person){
       const m=boxplotMetrics(person);if(!m)return '';
@@ -678,26 +708,39 @@
       container.addEventListener('focusin',event=>{const target=targetOf(event);if(target){const rect=target.getBoundingClientRect();hover(target,rect.right,rect.top)}});
       container.addEventListener('focusout',hide);
     }
+    function bindBoxplotStats(wrap){
+      if(wrap.dataset.statsBound)return;wrap.dataset.statsBound='true';
+      const show=target=>{const detail=$('boxplotStatDetail');detail.hidden=false;detail.textContent=decodeURIComponent(target.dataset.boxStat)};
+      wrap.addEventListener('click',event=>{const target=event.target.closest('[data-box-stat]');if(target)show(target)});
+      wrap.addEventListener('keydown',event=>{const target=event.target.closest('[data-box-stat]');if(target&&(event.key==='Enter'||event.key===' ')){event.preventDefault();show(target)}});
+    }
     function renderBoxplot(){
-      const wrap=$('boxplotChart'),summary=$('boxplotSummary'),tip=$('boxplotHoverTooltip');if(tip)tip.style.display='none';
+      const wrap=$('boxplotChart'),tip=$('boxplotHoverTooltip');if(tip)tip.style.display='none';$('boxplotStatDetail').hidden=true;
       const {rows,baseline,groups,cohorts}=boxplotSummaryData(),visibleN=cohorts.reduce((sum,c)=>sum+groups.get(c).length,0),unrated=filteredPeople().length-rows.length;
-      summary.innerHTML=rows.length?`<strong>大盘平均高绩效 ${boxplotPercent(baseline)}</strong><span>基线样本 ${rows.length} 人 · 图中展示 ${cohorts.length} 届 / ${visibleN} 人${unrated?` · ${unrated} 人无有效评级，未计入`:''}</span>`:'<span>导入 Excel 后，按当前筛选计算高绩效占比和大盘均值。</span>';
       if(!rows.length){wrap.innerHTML='<div class="chart-empty">'+(personalRows?'当前筛选没有有效绩效记录。':'导入 Excel 后，比较各届个人高绩效占比。')+'</div>';return}
       if(!cohorts.length){wrap.innerHTML='<div class="chart-empty">当前筛选下，没有有效参评人数达到 5 人的届别。</div>';return}
       const H=ANALYSIS_CHART_HEIGHT,L=65,R=25,T=32,B=60,innerH=H-T-B,sy=v=>T+(1-v)*innerH,basePitch=8,collator=new Intl.Collator('zh-CN-u-co-pinyin');
       // Adjacent levels closer than one point spacing share lanes, so neither equal nor near-equal ratios collide.
       const layouts=cohorts.map(cohort=>{const sorted=[...groups.get(cohort)].sort((a,b)=>a.m.ratio-b.m.ratio||collator.compare(a.p.name||'',b.p.name||'')||collator.compare(personKey(a.p),personKey(b.p))),bands=[];sorted.forEach(row=>{const band=bands.at(-1);if(band&&Math.abs(sy(band.at(-1).m.ratio)-sy(row.m.ratio))<basePitch)band.push(row);else bands.push([row])});return {cohort,sorted,bands}});
       const maxBand=Math.max(...layouts.flatMap(l=>l.bands.map(b=>b.length))),W=Math.max(320,Math.round(wrap.clientWidth||820)),innerW=W-L-R,step=innerW/cohorts.length,cx=i=>L+step*(i+.5),boxW=Math.min(56,step*.28),pitch=Math.min(basePitch,step*.46/Math.max(1,maxBand)),pointR=Math.min(3,pitch*.38),pointStroke=Math.min(.9,pitch*.15);
-      let svg=`<svg class="chart-svg boxplot-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="有效参评人数至少5人的各届高绩效占比分布，虚线为当前筛选全部有效人员的大盘均值">`;
+      let svg=`<svg class="chart-svg boxplot-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="有效参评人数至少5人的各届高绩效占比分布，虚线为当前筛选全部有效人员的整体平均">`;
       for(let i=0;i<=4;i++){const val=i/4,y=sy(val);svg+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#e9edf3"/><text x="${L-10}" y="${y+4}" text-anchor="end" fill="#748197" font-size="11">${Math.round(val*100)}%</text>`}
-      layouts.forEach(({cohort,sorted},i)=>{const vals=sorted.map(row=>row.m.ratio),q1=quantile(vals,.25),med=quantile(vals,.5),q3=quantile(vals,.75),min=vals[0],max=vals.at(-1),x=cx(i),title=`${cohortLabel(cohort)}｜N=${vals.length}｜Q1 ${boxplotPercent(q1)}｜中位数 ${boxplotPercent(med)}｜Q3 ${boxplotPercent(q3)}｜最小 ${boxplotPercent(min)}｜最大 ${boxplotPercent(max)}`;
-        svg+=`<g class="boxplot-box" data-cohort="${escapeHtml(cohort)}" data-count="${vals.length}"><title>${escapeHtml(title)}</title><line x1="${x}" y1="${sy(max)}" x2="${x}" y2="${sy(min)}" stroke="#d18a37" stroke-width="1.3"/><line x1="${x-boxW*.3}" y1="${sy(max)}" x2="${x+boxW*.3}" y2="${sy(max)}" stroke="#d18a37"/><line x1="${x-boxW*.3}" y1="${sy(min)}" x2="${x+boxW*.3}" y2="${sy(min)}" stroke="#d18a37"/><rect x="${x-boxW/2}" y="${sy(q3)}" width="${boxW}" height="${sy(q1)-sy(q3)}" fill="#fff3d7" fill-opacity=".7" stroke="#e6b263" stroke-width="1.3"/><line x1="${x-boxW/2}" y1="${sy(med)}" x2="${x+boxW/2}" y2="${sy(med)}" stroke="#a9671a" stroke-width="2"/></g><text x="${x}" y="${H-31}" text-anchor="middle" fill="#415775" font-size="12">${escapeHtml(cohortLabel(cohort))}</text><text x="${x}" y="${H-13}" text-anchor="middle" fill="#7e8b9e" font-size="11">N=${vals.length}</text>`;
+      layouts.forEach(({cohort,sorted},i)=>{const vals=sorted.map(row=>row.m.ratio),q1=quantile(vals,.25),med=quantile(vals,.5),q3=quantile(vals,.75),min=vals[0],max=vals.at(-1),x=cx(i),title=boxplotStatsText(cohort,vals);
+        svg+=`<g class="boxplot-box" data-cohort="${escapeHtml(cohort)}" data-count="${vals.length}"><title>${escapeHtml(title)}</title><line x1="${x}" y1="${sy(max)}" x2="${x}" y2="${sy(min)}" stroke="#d18a37" stroke-width="1.3"/><line x1="${x-boxW*.3}" y1="${sy(max)}" x2="${x+boxW*.3}" y2="${sy(max)}" stroke="#d18a37"/><line x1="${x-boxW*.3}" y1="${sy(min)}" x2="${x+boxW*.3}" y2="${sy(min)}" stroke="#d18a37"/><rect x="${x-boxW/2}" y="${sy(q3)}" width="${boxW}" height="${sy(q1)-sy(q3)}" fill="#fff3d7" fill-opacity=".7" stroke="#e6b263" stroke-width="1.3"/><line x1="${x-boxW/2}" y1="${sy(med)}" x2="${x+boxW/2}" y2="${sy(med)}" stroke="#4f46e5" stroke-width="3.5"/></g><text x="${x}" y="${H-31}" text-anchor="middle" fill="#415775" font-size="12">${escapeHtml(cohortLabel(cohort))}</text><text x="${x}" y="${H-13}" text-anchor="middle" fill="#7e8b9e" font-size="11">N=${vals.length}</text>`;
       });
-      const baselineY=sy(baseline);svg+=`<line class="boxplot-baseline" data-baseline="${baseline}" x1="${L}" y1="${baselineY}" x2="${W-R}" y2="${baselineY}" stroke="#617895" stroke-width="1.5" stroke-dasharray="6 4"><title>大盘平均高绩效线 ${boxplotPercent(baseline)} · ${rows.length} 人</title></line><rect x="${W-R-265}" y="${baselineY-30}" width="265" height="25" rx="3" fill="#fff" fill-opacity=".94"/><text x="${W-R-5}" y="${baselineY-10}" text-anchor="end" fill="#455d7c" font-size="11" font-weight="700">大盘平均高绩效线 ${boxplotPercent(baseline)}</text>`;
+      layouts.forEach(({cohort,sorted},i)=>{
+        const vals=sorted.map(row=>row.m.ratio),x=cx(i),q1=quantile(vals,.25),med=quantile(vals,.5),q3=quantile(vals,.75);
+        const stats=[{label:'箱体下沿 P25',value:q1,percent:25,color:'#d18a37'},{label:'箱体上沿 P75',value:q3,percent:75,color:'#d18a37'},{label:'中位线 P50',value:med,percent:50,color:'#4f46e5'}];
+        stats.forEach(stat=>{
+          const description=boxplotStatsText(cohort,vals),escaped=escapeHtml(description);
+          svg+=`<g class="boxplot-stat" tabindex="0" role="button" data-box-stat="${encodeURIComponent(description)}" aria-label="${escaped}"><title>${escaped}</title><line x1="${x-boxW/2}" y1="${sy(stat.value)}" x2="${x+boxW/2}" y2="${sy(stat.value)}" stroke="transparent" stroke-width="14"/><line x1="${x-boxW/2}" y1="${sy(stat.value)}" x2="${x+boxW/2}" y2="${sy(stat.value)}" stroke="${stat.color}" stroke-width="${stat.percent===50?3.5:1.3}"/></g>`;
+        });
+      });
+      const baselineY=sy(baseline);svg+=`<line class="boxplot-baseline" data-baseline="${baseline}" x1="${L}" y1="${baselineY}" x2="${W-R}" y2="${baselineY}" stroke="#617895" stroke-width="1.5" stroke-dasharray="6 4"><title>整体平均 ${boxplotPercent(baseline)} · ${rows.length} 人</title></line><rect x="${W-R-265}" y="${baselineY-30}" width="265" height="25" rx="3" fill="#fff" fill-opacity=".94"/><text x="${W-R-5}" y="${baselineY-10}" text-anchor="end" fill="#455d7c" font-size="11" font-weight="700">整体平均 ${boxplotPercent(baseline)}</text>`;
       layouts.forEach(({cohort,bands},i)=>bands.forEach(band=>band.forEach(({p,m},j)=>{const x=cx(i)+(j-(band.length-1)/2)*pitch,y=sy(m.ratio),color=boxplotColor(m.ratio,baseline),title=`${p.name||'未填写姓名'}｜${p.dept||'未填写'}｜${cohortLabel(cohort)}｜${displayRank(p)}｜高绩效 ${boxplotPercent(m.ratio)}（${m.highCount}/${m.count} 次）｜${m.history.map(([period,grade])=>period+' '+grade).join(' → ')}`;
         svg+=`<circle class="boxplot-point" tabindex="0" role="button" aria-label="${escapeHtml(title)}；点击查看该届同占比的全部人员" data-boxplot-person="${encodeURIComponent(personKey(p))}" data-boxplot-cohort="${encodeURIComponent(cohort)}" data-boxplot-ratio="${m.ratioKey}" data-ratio="${m.ratio}" cx="${x}" cy="${y}" r="${pointR}" fill="${color}" stroke="#fff" stroke-width="${pointStroke}"><title>${escapeHtml(title)}</title></circle>`;
       })));
-      svg+='</svg>';wrap.innerHTML=svg;bindBoxplotInteractions(wrap);
+      svg+='</svg>';wrap.innerHTML=svg;bindBoxplotInteractions(wrap);bindBoxplotStats(wrap);
     }
     function render(){renderSummaryCards();renderRating();renderRankMatrix();renderQuadrant();renderBoxplot()}
     function findColumn(headers, predicate){return headers.findIndex(h=>predicate(clean(h).toLowerCase().replace(/[\s_./-]/g,'')))}
@@ -709,7 +752,7 @@
       const cohortI=findColumn(headers,h=>h.includes('校招届数')||h.includes('校招届别')||h==='届别'||h==='cohort');
       const sourceRankI=findColumn(headers,h=>h.includes('rank'));
       const rankI=sourceRankI>=0?sourceRankI:findColumn(headers,h=>h.includes('职级'));
-      const activeI=findColumn(headers,h=>h==='在职'||h==='在职状态'||h==='active'||h==='isactive');
+      const activeI=findColumn(headers,h=>/^在职(?:状态)?(?:[（(]yn[)）])?$/.test(h)||h==='active'||h==='isactive');
       const exactTenureI=findColumn(headers,h=>h==='tenure');
       const tenureI=exactTenureI>=0?exactTenureI:findColumn(headers,h=>h==='司龄'||h==='司龄（年）'||h==='司龄(年)');
       const exactReportingI=findColumn(headers,h=>h==='reportingline');
@@ -758,7 +801,7 @@
       try{
         const book=XLSX.read(await file.arrayBuffer(),{type:'array'});const parsed=[],sheetMap=new Map(Object.entries(book.Sheets).map(([name,sheet])=>[clean(name).replace(/\s+/g,''),sheet])),required=['策划','美术','程序'];healthMissingSheets=[];
         required.forEach(dept=>{const sheet=sheetMap.get(dept);if(!sheet){healthMissingSheets.push(dept);return}const deptRows=parseSheet(sheet,dept);if(!deptRows.length)healthMissingSheets.push(dept);parsed.push(...deptRows)});
-        if(!parsed.length)throw new Error('未找到可解析的“策划”“美术”“程序”工作表记录。');
+        if(!parsed.length)throw new Error('未找到“策划”“美术”“程序”工作表中的人员记录。使用下载模板时，请按岗位复制或重命名 Sheet1，填写姓名，并将“各期绩效（自填）”改为具体周期，例如“2026年中绩效”。');
         healthRows=parsed;personalRows=parsed;current=summarize(personalRows);const missingText=healthMissingSheets.length?'（绩效健康度缺少：'+healthMissingSheets.join('、')+'）':'（已合并策划、美术、程序）';$('snapshotLabel').textContent='已载入：'+file.name+' '+missingText;applyGlobalFilters();
       }catch(error){alert('读取失败：'+error.message)}finally{event.target.value=''}
     });
