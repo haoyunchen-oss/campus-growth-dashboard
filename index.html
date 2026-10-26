@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta name="dashboard-version" content="v35-20261023">
+  <meta name="dashboard-version" content="v37-20261026">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
@@ -859,7 +859,7 @@
       });
       svg+='</svg>';wrap.innerHTML=svg;bindQuadrantInteractions(wrap);
       const sizeKeys=[1,3,5].filter(year=>year<=maxTenure),sizeExamples=(sizeKeys.length?sizeKeys:[maxTenure]).map(year=>{const r=radiusFor(year),d=r*2;return `<span class="quadrant-size-example"><svg width="${d+4}" height="${d+4}" viewBox="0 0 ${d+4} ${d+4}" aria-hidden="true"><circle cx="${r+2}" cy="${r+2}" r="${r}" fill="#64748b" fill-opacity=".15" stroke="#64748b"/></svg><span>${Number(year.toFixed(1))}年</span></span>`}).join('');
-      legend.innerHTML=quads.map(q=>`<span class="chart-legend-item"><i class="chart-legend-dot" style="background:${q.color}"></i>${q.key}</span>`).join('')+`<div class="quadrant-size-key"><span>气泡面积表示司龄</span>${sizeExamples}<span class="quadrant-size-note">数字＝聚合人数；同职级、同象限的重叠气泡合并。聚合位置与面积按组内平均值显示，短横线表示绩效范围；点击查看个人实际值。</span></div>`;
+      legend.innerHTML=quads.map(q=>`<span class="chart-legend-item"><i class="chart-legend-dot" style="background:${q.color}"></i>${q.key}</span>`).join('')+`<div class="quadrant-size-key"><span>气泡面积表示司龄</span>${sizeExamples}<span class="quadrant-size-note">数字＝人数｜气泡大小＝平均司龄，点击气泡查看个人明细。</span></div>`;
     }
 
     function quantile(sorted,q){if(!sorted.length)return 0;const pos=(sorted.length-1)*q,lo=Math.floor(pos),hi=Math.ceil(pos);return sorted[lo]+(sorted[hi]-sorted[lo])*(pos-lo)}
@@ -969,6 +969,19 @@
         const title=`${analysisGroupLabel(cohort)}｜高绩效占比 ${boxplotPercent(m.ratio)}｜${count} 人；悬停查看人员明细，点击固定展开`;
         svg+=`<g class="boxplot-cluster" tabindex="0" role="button" aria-label="${escapeHtml(title)}" aria-haspopup="dialog" data-boxplot-cohort="${encodeURIComponent(cohort)}" data-boxplot-ratio="${m.ratioKey}" data-member-count="${count}" data-ratio="${m.ratio}" data-boxplot-keys="${encodeURIComponent(group.map(row=>personKey(row.p)).join('\n'))}"><circle class="boxplot-point" cx="${x}" cy="${y}" r="${r}" fill="${color}" fill-opacity=".92" stroke="#fff" stroke-width="1.5"/>${count>1?`<text class="boxplot-cluster-count" x="${x}" y="${y}">${count}</text>`:''}</g>`;
       })});
+      // Label the mean without an opaque backing; choose free space above the dashed line.
+      const meanText=`整体平均：${boxplotPercent(baseline)}`,meanWidth=[...meanText].reduce((width,ch)=>width+(/[\x00-\xff]/.test(ch)?9:14),0),meanY=baselineY-9,occupied=[];
+      layouts.forEach(({sorted,clusters},i)=>{
+        const vals=sorted.map(row=>row.m.ratio),x=cx(i),top=sy(vals.at(-1)),bottom=sy(vals[0]);
+        if(meanY+3>=top-3&&meanY-15<=bottom+3)occupied.push([x-boxW/2-4,x+boxW/2+4]);
+        clusters.forEach(group=>{const y=sy(group[0].m.ratio),r=group.length>1?Math.min(14,10+Math.log2(group.length)):7;
+          if(meanY+3>=y-r-3&&meanY-15<=y+r+3)occupied.push([x-r-4,x+r+4]);
+        });
+      });
+      let meanX=null;
+      for(let x=W-R-4;x-meanWidth>=L+4;x-=2){if(occupied.every(([left,right])=>x<=left||x-meanWidth>=right)){meanX=x;break}}
+      const abovePlot=meanX===null;
+      svg+=`<text class="boxplot-mean-value" x="${meanX??W-R-4}" y="${abovePlot?T-14:meanY}" text-anchor="end" fill="#455d7c" font-size="14" font-weight="700" pointer-events="none" aria-label="${meanText}">${meanText}</text>`;
       svg+='</svg>';wrap.innerHTML=svg;bindBoxplotInteractions(wrap);bindBoxplotStats(wrap);
     }
     function render(){renderAnalysisLabels();renderSummaryCards();renderRating();renderRankMatrix();renderQuadrant();renderBoxplot()}
